@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartBots - Главная</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'mainapp/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">SmartBots</div>
+            <ul class="nav-links">
+                <li><a href="#about">О нас</a></li>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#pricing">Тарифы</a></li>
+                <li><a href="#blog">Блог</a></li>
+                <li><a href="#login">Войти</a></li>
+            </ul>
+            <div class="mobile-menu-icon" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Создавайте умные чатботы с нами</h1>
+            <p>Решения для автоматизации взаимодействия с клиентами. Инновации и поддержка 24/7.</p>
+            <a href="#services" class="btn-primary">Начать сейчас</a>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <h2>О нас</h2>
+        <p>Мы помогаем компаниям интегрировать умных чатботов, которые улучшают взаимодействие с клиентами и автоматизируют процессы.</p>
+    </section>
+
+    <footer>
+        <p>© 2024 SmartBots. Все права защищены.</p>
+    </footer>
+
+    <script src="{% static 'mainapp/js/script.js' %}"></script>
+</body>
+</html>

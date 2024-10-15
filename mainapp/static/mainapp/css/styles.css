@@ -1,0 +1,159 @@
+/* Сброс стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Основной фон и базовые стили */
+body {
+    background-color: #f0f0f5;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden; /* Чтобы линии не выходили за пределы экрана */
+}
+
+/* Навигация */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #1a1a2e;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #f5f5f5;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li a {
+    color: #f5f5f5;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #00adb5;
+}
+
+/* Мобильное меню */
+.mobile-menu-icon {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.mobile-menu-icon span {
+    background: #fff;
+    height: 3px;
+    width: 25px;
+    transition: all 0.3s;
+}
+
+/* Hero секция с анимацией линий */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #a64141;
+    overflow: hidden; /* Скрываем лишние элементы за границами экрана */
+}
+
+.hero-content {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 50px;
+    border-radius: 10px;
+    z-index: 2;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: #e0e0e0;
+}
+
+.btn-primary {
+    background-color: #00adb5;
+    color: #fff;
+    padding: 12px 25px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #007c84;
+    transform: scale(1.05);
+}
+
+/* Анимация заголовка */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Анимация линий */
+.hero::before, .hero::after {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #ff0075, #00adb5, #f8d210);
+    animation: lineMove 6s linear infinite alternate;
+    z-index: 1;
+}
+
+.hero::after {
+    top: auto;
+    bottom: -100px;
+    height: 3px;
+    animation-duration: 8s;
+}
+
+@keyframes lineMove {
+    0% {
+        transform: translateX(-100%);
+        height: 2px;
+    }
+    50% {
+        height: 5px;
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(100%);
+        height: 2px;
+    }
+}

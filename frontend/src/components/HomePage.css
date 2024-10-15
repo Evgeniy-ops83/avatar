@@ -1,0 +1,201 @@
+/* Сброс стандартных стилей */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #f7f7f7;
+    overflow-x: hidden;
+}
+
+/* Header и меню */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #f8f4ff;
+    position: sticky;
+    top: 0;.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.left-content {
+  max-width: 50%;
+  padding-right: 20px;
+}
+
+.left-content h1 {
+  font-size: 36px;
+  color: #333;
+}
+
+.left-content p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.left-content ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.left-content li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.right-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 50%;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-content {
+    padding-right: 0;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .right-content {
+    width: 100%;
+  }
+}
+
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav ul li a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav ul li a:hover {
+    color: #ffab91;
+}
+
+/* Hero секция */
+.hero {
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    background-color: #1a1a2e;
+}
+
+.hero-content {
+    z-index: 2;
+    position: relative;
+    padding: 50px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    background-color: #00adb5;
+    color: #fff;
+    padding: 12px 25px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #007c84;
+    transform: scale(1.05);
+}
+
+/* Фоновая анимация */
+.animated-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(120deg, #ffecb3, #ffcc80, #ffab91, #f48fb1, #ce93d8);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    z-index: 1;
+    opacity: 0.9;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+/* Адаптивная верстка */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 36px;
+    }
+
+    .hero-content p {
+        font-size: 16px;
+    }
+
+    .nav ul {
+        gap: 15px;
+    }
+}
