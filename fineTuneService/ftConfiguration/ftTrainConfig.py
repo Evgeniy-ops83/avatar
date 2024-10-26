@@ -1,7 +1,11 @@
 company_url = "coca-cola.com"
 
-train_message_template = {
+message_template = {
     'system_request': 'null',
+    'user_request': 'null',
+}
+
+train_message_template = {
     'user_request': 'null',
     'assistant_request': 'null'
 }
@@ -22,7 +26,7 @@ system_message = \
 
 user_message = \
         f"""
-        Write an answer to the question about the company based on the information on the {company_url} website: {question}
+        Write an answer to the question about the company based on the information on the {company_url} website:
         """
 
 

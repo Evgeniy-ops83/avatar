@@ -15,14 +15,14 @@ class ChatCompletion:
             model=self.model,
             messages=self.messages
         )
-        response = completion.choices[0].message.content
+        response = json.dumps(f"{completion.choices[0].message.content}")
 
         return response
 
-    def getCompletionJson(self, **kwargs):
+    def getCompletionJson(self):
 
-        completion = self.getCompletion(**kwargs)
-        completion_json = json.dumps(f"{completion.choices[0].message.content}")
+        completion = self.getCompletion()
+        completion_json = json.dumps(f"{completion}")
 
         return completion_json
 
