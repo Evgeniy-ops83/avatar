@@ -1,5 +1,5 @@
-from FineTuneService.openaiConnector.completion import ChatCompletion
-from FineTuneService.ftModels.message import MessageBuilder
+from fineTuneService.openaiConnector.completion import ChatCompletion
+from fineTuneService.ftModels.message import MessageBuilder
 
 system_request = 'Write response in official style'
 user_request = 'Hello'
