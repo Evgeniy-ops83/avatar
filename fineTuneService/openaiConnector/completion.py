@@ -5,18 +5,19 @@ import json
 
 class ChatCompletion:
 
-    def __init__(self):
+    def __init__(self, messages):
         self.client = OpenAI()
         self.model = GENERAL_MODEL
+        self.messages = messages
 
-    def getCompletion(self, messages):
-
+    def getCompletion(self):
         completion = self.client.chat.completions.create(
             model=self.model,
-            messages=messages
+            messages=self.messages
         )
+        response = completion.choices[0].message.content
 
-        return completion
+        return response
 
     def getCompletionJson(self, **kwargs):
 

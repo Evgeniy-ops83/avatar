@@ -17,6 +17,6 @@ message_train = {
 }
 
 
-request = MessageBuilder(message)
-
-print(request.message_list)
+messages = MessageBuilder(message).getMessageList()
+completion = ChatCompletion(messages).getCompletion()
+print(completion)
