@@ -1,23 +1,12 @@
-from fineTuneService.openaiConnector.completion import ChatCompletion
-from fineTuneService.ftModels.message import MessageListBuilder
-
-system_request = 'Write response in official style'
-user_request = 'Hello'
-assistant_request = 'Hello Mr.'
-
-message = {
-    'system_request': system_request,
-    'user_request': user_request
-}
-
-message_train = {
-    'system_request': system_request,
-    'user_request': user_request,
-    'assistant_request': assistant_request
-}
 
 
-#messages = MessageListBuilder(message).message_list
-train_dict = MessageListBuilder(message).getMessageTrainList()
-#completion = ChatCompletion(messages).getCompletion()
-print(train_dict)
+
+test_dict = {'messages': ['"{\'user_request\': \'What are the categories of products or services offered by Coca-Cola?\', \'assistant_request\': \'Coca-Cola offers a variety of product categories including soft drinks, water, juices, teas, coffees, and energy drinks. Their portfolio features well-known brands such as Coca-Cola, Diet Coke, Sprite, Fanta, Dasani, and Minute Maid, among others.\'}"']}
+
+perf_dict = test_dict['messages'][0][2:-2]
+
+dict1 = dict(perf_dict)
+
+#.split('\',')
+
+print(perf_dist)

@@ -6,9 +6,11 @@ class Message:
 
 
 class MessageListBuilder:
-    def __init__(self, request):
+    def __init__(self):
         self.message_list = []
-        self.message_train_list = {'messages': []}
+        self.message_train_list = {"messages": []}
+
+    def getMessageList(self, request):
 
         if 'system_request' in request.keys():
             self.system_message = Message(role='system', content=request['system_request'])
@@ -22,12 +24,9 @@ class MessageListBuilder:
             self.assistant_message = Message(role='assist', content=request['assistant_request'])
             self.message_list.append(self.system_message.message)
 
-
-    def getMessageList(self):
-
         return self.message_list
 
-    def getMessageTrainList(self):
-        self.message_train_list['messages'] = self.message_list
+    def getMessageTrainList(self, request):
+        self.message_train_list['messages'].append(request)
 
         return self.message_train_list

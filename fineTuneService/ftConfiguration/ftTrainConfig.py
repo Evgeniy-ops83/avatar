@@ -6,8 +6,8 @@ message_template = {
 }
 
 train_message_template = {
-    'user_request': 'null',
-    'assistant_request': 'null'
+    "user_request": "null",
+    "assistant_request": "null"
 }
 
 question_list = [
@@ -20,6 +20,7 @@ system_message = \
         f"""
         Write the answer to the question in the format {train_message_template}, \
         Language English \
+        Write JSON format in response with double quotes and without any prefixes \
         where for the 'user_request', insert a question into the value, \
         and for the role 'assistant_request' insert your answer to the question into the value
         """
