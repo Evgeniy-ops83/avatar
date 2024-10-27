@@ -22,7 +22,6 @@ class ChatCompletion:
     def getCompletionJson(self):
 
         completion = self.getCompletion()
-        print('completion - ', completion)
         completion_json = json.loads(completion)
 
         return completion_json

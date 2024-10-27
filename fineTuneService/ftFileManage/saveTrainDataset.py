@@ -6,6 +6,9 @@ import json
 
 def saveTrainFile(dataset):
 
-    with open(f"{train_dataset_dir} - {date.today()}", 'a+') as f:
+    filepath = f"{train_dataset_dir} - {date.today()}"
+    with open(filepath, 'a+') as f:
         f.write(json.dumps(dataset) + "\n")
+
+    return filepath
 
