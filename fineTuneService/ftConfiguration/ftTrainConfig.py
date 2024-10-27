@@ -1,4 +1,5 @@
 company_url = "coca-cola.com"
+train_dataset_dir = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{company_url}'
 
 message_template = {
     'system_request': 'null',
