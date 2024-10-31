@@ -33,8 +33,8 @@ def createNewTrainDataset():
 
         print(fr'Question {question} successfully added')
 
-    return f'Train file successfully created in {dataset_path}'
+    return dataset_path
 
 
-a = createNewTrainDataset()
+a = MessageListBuilder().getMessageList(request)
 print(a)
