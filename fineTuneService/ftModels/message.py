@@ -12,11 +12,11 @@ class MessageListBuilder:
 
     def getMessageList(self, request):
 
-        if 'system' in request.keys():
+        if 'system_request' in request.keys():
             self.system_message = Message(role='system', content=request['system_request'])
             self.message_list.append(self.system_message.message)
 
-        if 'user' in request.keys():
+        if 'user_request' in request.keys():
             self.user_message = Message(role='user', content=request['user_request'])
             self.message_list.append(self.user_message.message)
 
