@@ -1,19 +1,19 @@
 from fineTuneService.ftModels.message import MessageListBuilder
 from fineTuneService.openaiConnector.completion import ChatCompletion
-from fineTuneService.ftConfiguration.ftTrainConfig import message_template, question_list, system_message, user_message
+from fineTuneService.ftConfiguration.ftTrainConfig import TRAIN_REQUEST_TEMPLATE, QUESTION_LIST, TRAIN_SYSTEM_REQUEST, TRAIN_USER_REQUEST
 from fineTuneService.ftFileManage.saveTrainDataset import saveTrainFile
 
 
 def createRequestFromTemplate(question):
 
-    message_template['system_request'] = system_message
-    message_template['user_request'] = user_message + question
+    TRAIN_REQUEST_TEMPLATE['system_request'] = TRAIN_SYSTEM_REQUEST
+    TRAIN_REQUEST_TEMPLATE['user_request'] = TRAIN_USER_REQUEST + question
 
-    return message_template
+    return TRAIN_REQUEST_TEMPLATE
 
 def createNewTrainDataset():
 
-    for question in question_list:
+    for question in QUESTION_LIST:
 
         print(f'Next question is {question}')
 

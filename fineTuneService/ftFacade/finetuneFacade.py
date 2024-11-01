@@ -1,4 +1,4 @@
-from fineTuneService.ftConfiguration.ftTrainConfig import company_url, train_filepath
+from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL, FINE_TUNE_DATASET_DIR
 from fineTuneService.openaiConnector.finetune import FineTune
 
 import time
@@ -8,7 +8,7 @@ def createNewFinetuneJob(request):
     if 'filepath' in request.keys():
         filepath = request
     else:
-        filepath = train_filepath
+        filepath = FINE_TUNE_DATASET_DIR
 
     train_job = FineTune(filepath)
 
@@ -44,6 +44,6 @@ def createNewFinetuneJob(request):
     return 200
 
 
-request = {'filepath': train_filepath}
+request = {'filepath': FINE_TUNE_DATASET_DIR}
 a = createNewFinetuneJob(request)
 

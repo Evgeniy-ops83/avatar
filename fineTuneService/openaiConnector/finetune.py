@@ -1,5 +1,5 @@
 from fineTuneService.ftConfiguration.ftConfig import GENERAL_FT_MODEL
-from fineTuneService.ftConfiguration.ftTrainConfig import train_filepath, custom_model_suffix
+from fineTuneService.ftConfiguration.ftTrainConfig import FINE_TUNE_DATASET_DIR, FT_MODEL_SUFFIX
 
 from openai import OpenAI
 from pathlib import Path
@@ -12,7 +12,7 @@ class FineTune:
         if 'filepath' in request.keys():
             self.filepath = Path(request['filepath'])
         else:
-            self.filepath = Path(train_filepath)
+            self.filepath = Path(FINE_TUNE_DATASET_DIR)
 
         print('filepath - ', self.filepath)
 
@@ -30,7 +30,7 @@ class FineTune:
         ft_job = self.client.fine_tuning.jobs.create(
             training_file=training_file,
             model=model,
-            suffix=custom_model_suffix
+            suffix=FT_MODEL_SUFFIX
         )
         return ft_job
 

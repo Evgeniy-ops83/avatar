@@ -1,25 +1,7 @@
-company_url = "coca-cola.com"
-train_dataset_dir = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{company_url}'
+"""CREATING TRAIN DATASET"""
 
-train_filename = 'coca-cola.com - 2024-11-01'
-train_filepath = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{train_filename}'
-custom_model_suffix = 'avatar-model'
-
-message_template = {
-    'system_request': 'null',
-    'user_request': 'null',
-}
-
-train_message_template = {
-    "user_request": "null",
-    "assistant_request": "null"
-}
-
-system_message_template = {"role": "system", "content": "null"}
-user_message_template = {"role": "user", "content": "null"}
-assistant_message_template = {"role": "assistant", "content": "null"}
-
-question_list = [
+COMPANY_URL = "coca-cola.com"
+QUESTION_LIST = [
     'What is the name of the company?',
     'What is the advertising description of the company ?',
     'What are the categories of products or services offered by the company ?',
@@ -31,19 +13,32 @@ question_list = [
     'How can I get delivery of company products ?',
     'What is the key feedback points about the company from customers ? (use around 100 symbols in response)'
 ]
-
-system_message = \
+TRAIN_REQUEST_TEMPLATE = {
+    'system_request': 'null',
+    'user_request': 'null',
+}
+TRAIN_DATASET_FORMAT = {
+    "user_request": "null",
+    "assistant_request": "null"
+}
+TRAIN_SYSTEM_REQUEST = \
         f"""
-        Write the answer to the question in the format {train_message_template}, \
+        Write the answer to the question in the format {TRAIN_DATASET_FORMAT}, \
         Language English \
         Use JSON double quotes format in response and without any prefixes \
         where for the 'user_request', insert a question into the value, \
         and for the role 'assistant_request' insert your answer to the question into the value
         """
-
-user_message = \
+TRAIN_USER_REQUEST = \
         f"""
-        Write an answer to the question about the company based on the information on the {company_url} website:
+        Write an answer to the question about the company based on the information on the {COMPANY_URL} website:
         """
+DATASET_SAVE_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{COMPANY_URL}'
+
+"""CREATING FINE TUNE JOB"""
+
+FINE_TUNE_DATASET = 'coca-cola.com - 2024-11-01'
+FT_MODEL_SUFFIX = 'avatar-model'
+FINE_TUNE_DATASET_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{FINE_TUNE_DATASET}'
 
 
