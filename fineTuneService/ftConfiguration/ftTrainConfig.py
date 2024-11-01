@@ -1,7 +1,7 @@
 company_url = "coca-cola.com"
 train_dataset_dir = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{company_url}'
 
-train_filename = 'coca-cola.com - 2024-10-31'
+train_filename = 'coca-cola.com - 2024-11-01'
 train_filepath = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{train_filename}'
 custom_model_suffix = 'avatar-model'
 
@@ -22,7 +22,14 @@ assistant_message_template = {"role": "assistant", "content": "null"}
 question_list = [
     'What is the name of the company?',
     'What is the advertising description of the company ?',
-    'What are the categories of products or services offered by the company ?'
+    'What are the categories of products or services offered by the company ?',
+    'What is the foundation history of the company ? (use around 100 symbols in response)',
+    'What is the key persons in company?',
+    'What is the mission of the company in one sentence ?',
+    'List 3 last events in which company was participated lately ?',
+    'How can I buy company products ?',
+    'How can I get delivery of company products ?',
+    'What is the key feedback points about the company from customers ? (use around 100 symbols in response)'
 ]
 
 system_message = \

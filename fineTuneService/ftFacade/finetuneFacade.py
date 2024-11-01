@@ -20,11 +20,22 @@ def createNewFinetuneJob(request):
     train_ft_job_status = train_job.getFinetuneJob(train_ft_job_id).status
     print('train_ft_job_status - ', train_ft_job_status)
 
+    print('Fine tune is in process now. Please wait')
+    train_ft_job_status = train_job.getFinetuneJob(train_ft_job_id).status
+    print('train_ft_job_status - ', train_ft_job_status)
+
     while train_ft_job_status != 'succeeded':
-        train_ft_job_status = train_job.getFinetuneJob(train_ft_job_id).status
-        print('Fine_tune is processing now. Please wait')
-        print('train_ft_job_status - ', train_ft_job_status)
-        time.sleep(5)
+
+        train_ft_job_info = train_job.getFinetuneJob(train_ft_job_id)
+        new_train_ft_job_status = train_ft_job_info.status
+
+        if new_train_ft_job_status != train_ft_job_status:
+            print('train_ft_job_status - ', new_train_ft_job_status)
+
+        if new_train_ft_job_status == 'failed':
+            raise TypeError(f"Error occurred while fine tuning: {train_ft_job_info.error}")
+
+        time.sleep(15)
 
     ft_model = train_job.getFinetuneJob(train_ft_job_id).fine_tuned_model
 
