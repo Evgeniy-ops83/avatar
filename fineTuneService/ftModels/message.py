@@ -1,3 +1,4 @@
+from fineTuneService.ftConfiguration.ftTrainConfig import TRAIN_REQUEST_TEMPLATE, TRAIN_SYSTEM_REQUEST, TRAIN_USER_REQUEST
 
 
 class Message:
@@ -9,6 +10,13 @@ class MessageListBuilder:
     def __init__(self):
         self.message_list = []
         self.message_train_list = {}
+
+    def createRequestFromTemplate(self, question):
+
+        TRAIN_REQUEST_TEMPLATE['system_request'] = TRAIN_SYSTEM_REQUEST
+        TRAIN_REQUEST_TEMPLATE['user_request'] = TRAIN_USER_REQUEST + question
+
+        return TRAIN_REQUEST_TEMPLATE
 
     def getMessageList(self, request):
 
