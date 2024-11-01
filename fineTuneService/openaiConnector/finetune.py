@@ -14,11 +14,6 @@ class FineTune:
         else:
             self.filepath = Path(FINE_TUNE_DATASET_DIR)
 
-        print('filepath - ', self.filepath)
-
-        f = open(self.filepath)
-        print(f.read())
-
     def createFinetuneFile(self):
         ft_file = self.client.files.create(
             file=open(self.filepath, "rb"),

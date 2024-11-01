@@ -1,15 +1,8 @@
 from fineTuneService.ftModels.message import MessageListBuilder
 from fineTuneService.openaiConnector.completion import ChatCompletion
-from fineTuneService.ftConfiguration.ftTrainConfig import TRAIN_REQUEST_TEMPLATE, QUESTION_LIST, TRAIN_SYSTEM_REQUEST, TRAIN_USER_REQUEST
+from fineTuneService.ftConfiguration.ftTrainConfig import QUESTION_LIST
 from fineTuneService.ftFileManage.saveTrainDataset import saveTrainFile
 
-
-def createRequestFromTemplate(question):
-
-    TRAIN_REQUEST_TEMPLATE['system_request'] = TRAIN_SYSTEM_REQUEST
-    TRAIN_REQUEST_TEMPLATE['user_request'] = TRAIN_USER_REQUEST + question
-
-    return TRAIN_REQUEST_TEMPLATE
 
 def createNewTrainDataset():
 
@@ -17,26 +10,26 @@ def createNewTrainDataset():
 
         print(f'Next question is {question}')
 
-        request = createRequestFromTemplate(question)  # Create request for ChatGPT from template and question list
-        print('dataset request - ', request)
-
-        completion_request = MessageListBuilder().getMessageList(request)  # Format request for Completion (list)
+        input_request = MessageListBuilder()  # Create request for ChatGPT from template
+        request = input_request.createRequestFromTemplate(question)
+        completion_request = input_request.getMessageList(request)
         print('completion_request - ', completion_request)
 
-        train_completion = ChatCompletion(completion_request).getCompletionJson()  # Send request to ChatGPT
-        print('train_completion - ', train_completion)
+        completion_response = ChatCompletion(completion_request).getCompletionJson()  # Send request to ChatGPT
+        print('train_completion - ', completion_response)
 
-        train_ds = MessageListBuilder().getMessageTrainList(train_completion)  # Format GPT response for Train Dataset
-        print('train_ds - ', train_ds)
+        response = MessageListBuilder()  # Format GPT response for Train Dataset
+        response_object = response.getMessageList(completion_response)
+        response_dataset = response.getMessageTrainList(response_object)
+        print('response_dataset - ', response_dataset)
 
-        dataset_path = saveTrainFile(train_ds)  # Save Train Dataset
+        dataset_path = saveTrainFile(response_dataset)  # Save Train Dataset
         print('dataset_path - ', dataset_path)
 
         print(fr'Question {question} successfully added')
 
     return 200
 
-'''
+
 a = createNewTrainDataset()
 print(a)
-'''

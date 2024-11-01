@@ -1,6 +1,8 @@
 """CREATING TRAIN DATASET"""
 
-COMPANY_URL = "coca-cola.com"  # for API
+COMPANY_URL = "snickers.com"  # for API
+
+# create various questions templates for different business types
 QUESTION_LIST = [
     'What is the name of the company?',
     'What is the advertising description of the company ?',
@@ -37,7 +39,7 @@ DATASET_SAVE_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resour
 
 """CREATING FINE TUNE JOB"""
 
-FINE_TUNE_DATASET = 'coca-cola.com - 2024-11-01'
+FINE_TUNE_DATASET = 'snickers.com - 2024-11-01'
 FT_MODEL_SUFFIX = 'avatar-model'    # for API
 FINE_TUNE_DATASET_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{FINE_TUNE_DATASET}'
 

@@ -10,13 +10,14 @@ class MessageListBuilder:
     def __init__(self):
         self.message_list = []
         self.message_train_list = {}
+        self.message_template = TRAIN_REQUEST_TEMPLATE
 
     def createRequestFromTemplate(self, question):
 
-        TRAIN_REQUEST_TEMPLATE['system_request'] = TRAIN_SYSTEM_REQUEST
-        TRAIN_REQUEST_TEMPLATE['user_request'] = TRAIN_USER_REQUEST + question
+        self.message_template['system_request'] = TRAIN_SYSTEM_REQUEST
+        self.message_template['user_request'] = TRAIN_USER_REQUEST + question
 
-        return TRAIN_REQUEST_TEMPLATE
+        return self.message_template
 
     def getMessageList(self, request):
 
@@ -35,7 +36,6 @@ class MessageListBuilder:
         return self.message_list
 
     def getMessageTrainList(self, request):
-        request = self.getMessageList(request)
         self.message_train_list['messages'] = request
 
         return self.message_train_list
