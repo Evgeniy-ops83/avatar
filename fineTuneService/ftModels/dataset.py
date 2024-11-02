@@ -51,34 +51,34 @@ class DatasetBuilder:
 
 
 class Dataset:
-    ID: str
-    TYPE: str
-    PROCESS_ID: str
-    UPDATED: str
-    ROLE: str
-    CONTENT: str
+    id: str
+    ds_type: str
+    process_id: str
+    updated: str
+    ds_role: str
+    content: str
 
     def __init__(self, ds_type, process_id):
-        self.ID = str(uuid.uuid4())
-        self.TYPE = ds_type
-        self.PROCESS_ID = process_id
-        self.UPDATED = str(datetime.now())
-        self.ROLE = 'undefined'
-        self.CONTENT = 'undefined'
+        self.id = str(uuid.uuid4())
+        self.ds_type = ds_type
+        self.process_id = process_id
+        self.updated = str(datetime.now())
+        self.ds_role = 'undefined'
+        self.content = 'undefined'
 
     def createDataset(self, request):
 
         if 'system_request' in request.keys():
-            self.ROLE = 'system'
-            self.CONTENT = request['system_request']
+            self.ds_role = 'system'
+            self.content = request['system_request']
         elif 'user_request' in request.keys():
-            self.ROLE = 'user'
-            self.CONTENT = request['user_request']
+            self.ds_role = 'user'
+            self.content = request['user_request']
         elif 'assistant_request' in request.keys():
-            self.ROLE = 'assistant'
-            self.CONTENT = request['assistant_request']
+            self.ds_role = 'assistant'
+            self.content = request['assistant_request']
 
-        dataset = {"role": self.ROLE, "content": self.CONTENT}
+        dataset = {"role": self.ds_role, "content": self.content}
 
         return dataset
 

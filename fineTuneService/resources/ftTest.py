@@ -1,11 +1,15 @@
 
 from fineTuneService.ftConfiguration.ftTrainConfig import FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
-
 from fineTuneService.ftFacade.trainFacade import FtProcess
+from fineTuneService.ftModels.dataset import Dataset
+from fineTuneService.ftFileManage.saveTrainDataset import DatasetFile
 from fineTuneService.ftConfiguration.ftTrainConfig import QUESTION_LIST
 
+from fineTuneService.ftStorage.ftClickhouseConnector import saveSourceObject
+import json
+
+
 test_process = FtProcess()
-print(test_process)
 
 for question in QUESTION_LIST:
 
@@ -17,6 +21,7 @@ for question in QUESTION_LIST:
 
     dataset_path = test_process.saveDatasetFile(train_dataset)
 
+saveSourceObject('process', test_process.__dict__)
 
 '''
 from pathlib import Path

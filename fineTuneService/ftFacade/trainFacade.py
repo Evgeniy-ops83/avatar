@@ -1,23 +1,22 @@
 from fineTuneService.ftModels.dataset import Dataset, DatasetBuilder
 from fineTuneService.openaiConnector.completion import ChatCompletion
-from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL, QUESTION_LIST
-from fineTuneService.ftFileManage.saveTrainDataset import saveTrainFile
+from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL
+from fineTuneService.ftFileManage.saveTrainDataset import DatasetFile
+from fineTuneService.ftStorage.ftClickhouseConnector import saveSourceObject
 
 import uuid
 from datetime import datetime
 
 
 class FtProcess:
-    ID: str
-    COMPANY_URL: str
-    CREATED: str
-    QUESTION_SET: str
+    id: str
+    company_url: str
+    created: str
 
     def __init__(self):
-        self.ID = str(uuid.uuid4())
-        self.COMPANY_URL = COMPANY_URL
-        self.CREATED = str(datetime.now())
-        self.QUESTION_SET = QUESTION_LIST
+        self.id = str(uuid.uuid4())
+        self.company_url = COMPANY_URL
+        self.created = str(datetime.now())
 
     def createRequestFromTemplate(self, question):  # Create request from template
 
@@ -27,8 +26,14 @@ class FtProcess:
         system_template = request_template.createDatasetFromTemplate(question, 'system_request')
         user_template = request_template.createDatasetFromTemplate(question, 'user_request')
 
-        system_dataset = Dataset('system_request', self.ID).createDataset(system_template)
-        user_dataset = Dataset('user_request', self.ID).createDataset(user_template)
+        system_dataset_obj = (Dataset('system_request', self.id))
+        system_dataset = system_dataset_obj.createDataset(system_template)
+
+        user_dataset_obj = Dataset('user_request', self.id)
+        user_dataset = user_dataset_obj.createDataset(user_template)
+
+        saveSourceObject('dataset', system_dataset_obj.__dict__)
+        saveSourceObject('dataset', user_dataset_obj.__dict__)
 
         request_completion = request_template.createDatasetList(system_dataset, user_dataset)
         print('request_completion - ', request_completion)
@@ -36,8 +41,6 @@ class FtProcess:
         return request_completion
 
     def getTrainCompletion(self, request_completion):  # Send request to ChatGPT
-
-        # {'user_request': 'List 3 last events in which Snickers participated lately?', 'assistant_request': 'null'}
 
         train_completion = ChatCompletion(request_completion).getCompletionJson()
         print('train_completion - ', train_completion)
@@ -50,8 +53,14 @@ class FtProcess:
         user_train_completion = train_template.createTrainDataset('user_completion', request['user_request'])
         assist_train_completion = train_template.createTrainDataset('assist_completion', request['assistant_request'])
 
-        user_completion_ds = Dataset('user_completion', self.ID).createDataset(user_train_completion)
-        assist_completion_ds = Dataset('assist_completion', self.ID).createDataset(assist_train_completion)
+        user_completion_obj = Dataset('user_completion', self.id)
+        user_completion_ds = user_completion_obj.createDataset(user_train_completion)
+
+        assist_completion_obj = Dataset('assist_completion', self.id)
+        assist_completion_ds = assist_completion_obj.createDataset(assist_train_completion)
+
+        saveSourceObject('dataset', user_completion_obj.__dict__)
+        saveSourceObject('dataset', assist_completion_obj.__dict__)
 
         train_completion_list = train_template.createDatasetList(user_completion_ds, assist_completion_ds)
         train_dataset = train_template.createMessageTrainList(train_completion_list)
@@ -61,12 +70,10 @@ class FtProcess:
 
     def saveDatasetFile(self, dataset):
 
-        dataset_path = saveTrainFile(dataset)  # Save Train Dataset
+        dataset_file = DatasetFile(self.id)
+        dataset_path = dataset_file.saveTrainFile(dataset, self.company_url)  # Save Train Dataset
         print('dataset_path - ', dataset_path)
 
-        return dataset_path
+        saveSourceObject('ds_file', dataset_file.__dict__)
 
-'''
-a = createNewTrainDataset()
-print(a)
-'''
+        return dataset_path

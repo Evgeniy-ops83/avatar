@@ -1,6 +1,6 @@
 """CREATING TRAIN DATASET"""
 
-COMPANY_URL = "nestle.com"  # for API
+COMPANY_URL = "1c.ru"  # for API
 
 # create various questions templates for different business types
 QUESTION_LIST = [
