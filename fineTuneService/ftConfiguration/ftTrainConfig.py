@@ -49,7 +49,7 @@ DATASET_SAVE_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resour
 
 """CREATING FINE TUNE JOB"""
 
-FINE_TUNE_DATASET = 'snickers.com - 2024-11-01'
+FINE_TUNE_DATASET = '1c.ru - 2024-11-02'
 FT_MODEL_SUFFIX = 'avatar-model'    # for API
 FINE_TUNE_DATASET_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{FINE_TUNE_DATASET}'
 

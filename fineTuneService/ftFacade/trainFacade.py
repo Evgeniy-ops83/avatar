@@ -8,7 +8,7 @@ import uuid
 from datetime import datetime
 
 
-class FtProcess:
+class FtProcess:  # for api return process
     id: str
     company_url: str
     created: str
