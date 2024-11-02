@@ -1,6 +1,6 @@
 """CREATING TRAIN DATASET"""
 
-COMPANY_URL = "snickers.com"  # for API
+COMPANY_URL = "nestle.com"  # for API
 
 # create various questions templates for different business types
 QUESTION_LIST = [
@@ -15,18 +15,28 @@ QUESTION_LIST = [
     'How can I get delivery of company products ?',
     'What is the key feedback points about the company from customers ? (use around 100 symbols in response)'
 ]
+SYSTEM_DATASET_TEMPLATE = {
+    'system_request': 'null'
+}
+USER_DATASET_TEMPLATE = {
+    'user_request': 'null'
+}
+ASSIST_DATASET_TEMPLATE = {
+    'assistant_request': 'null'
+}
 TRAIN_REQUEST_TEMPLATE = {
     'system_request': 'null',
-    'user_request': 'null',
+    'user_request': 'null'
 }
-TRAIN_DATASET_FORMAT = {
-    "user_request": "null",
-    "assistant_request": "null"
+TRAIN_DATASET_TEMPLATE = {
+    'user_request': 'null',
+    'assistant_request': 'null'
 }
 TRAIN_SYSTEM_REQUEST = \
         f"""
-        Write the answer to the question in the format {TRAIN_DATASET_FORMAT}, \
+        Write the answer to the question in the format {TRAIN_DATASET_TEMPLATE}, \
         Language English \
+        Use only characters from the English alphabet \
         Use JSON double quotes format in response and without any prefixes \
         where for the 'user_request', insert a question into the value, \
         and for the role 'assistant_request' insert your answer to the question into the value
