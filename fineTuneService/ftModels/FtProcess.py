@@ -1,5 +1,5 @@
 from ftModels.Dataset import Dataset, DatasetBuilder
-from completion import ChatCompletion
+from openai.completion import ChatCompletion
 from ftConfiguration.ftTrainConfig import COMPANY_URL
 from ftFileManage.saveTrainDataset import DatasetFile
 from ftStorage.ftClickhouseConnector import saveSourceObject
