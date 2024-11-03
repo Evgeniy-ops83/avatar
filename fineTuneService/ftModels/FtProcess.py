@@ -1,4 +1,4 @@
-from fineTuneService.ftModels.dataset import Dataset, DatasetBuilder
+from fineTuneService.ftModels.Dataset import Dataset, DatasetBuilder
 from fineTuneService.openaiConnector.completion import ChatCompletion
 from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL
 from fineTuneService.ftFileManage.saveTrainDataset import DatasetFile
@@ -26,7 +26,7 @@ class FtProcess:  # for api return process
         system_template = request_template.createDatasetFromTemplate(question, 'system_request')
         user_template = request_template.createDatasetFromTemplate(question, 'user_request')
 
-        system_dataset_obj = (Dataset('system_request', self.id))
+        system_dataset_obj = Dataset('system_request', self.id)
         system_dataset = system_dataset_obj.createDataset(system_template)
 
         user_dataset_obj = Dataset('user_request', self.id)

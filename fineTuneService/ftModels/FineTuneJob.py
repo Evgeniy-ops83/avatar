@@ -1,7 +1,8 @@
 from fineTuneService.ftConfiguration.ftConfig import GENERAL_FT_MODEL
-from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL, FINE_TUNE_DATASET_DIR
+from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL, FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
 from fineTuneService.openaiConnector.finetune import FineTune
 from fineTuneService.ftStorage.ftClickhouseConnector import saveSourceObject
+from fineTuneService.ftFileManage.CreatePath import createDir
 
 import time
 from datetime import datetime
@@ -30,7 +31,12 @@ class FineTuneJob:
         self.ft_file_id = 'undefined'
         self.created = str(datetime.now())
 
-    def createNewFinetuneJob(self, filepath):
+    def createNewFinetuneJob(self, request):
+
+        if 'filename' in request.keys():
+            filepath = createDir(request['filepath'])
+        else:
+            filepath = createDir(FINE_TUNE_DATASET_DIR)
 
         ft_job = FineTune(filepath)
 
@@ -62,7 +68,7 @@ class FineTuneJob:
         return 200
 
 
-newJobRequest = {'filepath': FINE_TUNE_DATASET_DIR}
+newJobRequest = {'filename': FINE_TUNE_DATASET_DIR+FINE_TUNE_DATASET}
 NewJob = FineTuneJob('ceef0ceb-9bc8-4c55-92f7-435488393cac')
 startNewJob = NewJob.createNewFinetuneJob(newJobRequest)
 saveSourceObject('ft_job', NewJob.__dict__)
