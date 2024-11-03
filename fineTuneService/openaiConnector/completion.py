@@ -1,17 +1,17 @@
 from ftConfiguration.ftConfig import GENERAL_MODEL
 
-import openai
+from openai import OpenAI
 import json
 
 class ChatCompletion:
 
     def __init__(self, messages):
-        self.client = openai
+        self.client = OpenAI()
         self.model = GENERAL_MODEL
         self.messages = messages
 
     def getCompletion(self):
-        completion = openai.Completion.create(
+        completion = self.client.chat.completions.create(
             model=self.model,
             messages=self.messages
         )
