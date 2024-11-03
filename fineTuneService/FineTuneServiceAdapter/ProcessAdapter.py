@@ -1,6 +1,6 @@
-from fineTuneService.ftConfiguration.ftTrainConfig import QUESTION_LIST
-from fineTuneService.ftModels.FtProcess import FtProcess
-from fineTuneService.ftStorage.ftClickhouseConnector import saveSourceObject
+from home.ubuntu.ai_assist.fineTuneService.ftConfiguration.ftTrainConfig import QUESTION_LIST
+from home.ubuntu.ai_assist.fineTuneService.ftModels.FtProcess import FtProcess
+from home.ubuntu.ai_assist.fineTuneService.ftStorage.ftClickhouseConnector import saveSourceObject
 
 from flask import Flask
 
