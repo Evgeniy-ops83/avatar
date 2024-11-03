@@ -1,4 +1,4 @@
-from fineTuneService.ftConfiguration.ftTrainConfig import FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
+from ftConfiguration.ftTrainConfig import FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
 from pathlib import Path
 from datetime import datetime
 

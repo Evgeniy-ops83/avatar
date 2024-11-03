@@ -1,8 +1,8 @@
 from ftModels.Dataset import Dataset, DatasetBuilder
-from openaiConnector.completion import ChatCompletion
-from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL
-from fineTuneService.ftFileManage.saveTrainDataset import DatasetFile
-from fineTuneService.ftStorage.ftClickhouseConnector import saveSourceObject
+from completion import ChatCompletion
+from ftConfiguration.ftTrainConfig import COMPANY_URL
+from ftFileManage.saveTrainDataset import DatasetFile
+from ftStorage.ftClickhouseConnector import saveSourceObject
 
 import uuid
 from datetime import datetime

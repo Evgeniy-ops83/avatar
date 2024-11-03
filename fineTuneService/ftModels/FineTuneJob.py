@@ -1,8 +1,8 @@
-from fineTuneService.ftConfiguration.ftConfig import GENERAL_FT_MODEL
-from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL, FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
-from fineTuneService.openaiConnector.finetune import FineTune
-from fineTuneService.ftStorage.ftClickhouseConnector import saveSourceObject
-from fineTuneService.ftFileManage.CreatePath import createDir
+from ftConfiguration.ftConfig import GENERAL_FT_MODEL
+from ftConfiguration.ftTrainConfig import COMPANY_URL, FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
+from openaiConnector.finetune import FineTune
+from ftStorage.ftClickhouseConnector import saveSourceObject
+from ftFileManage.CreatePath import createDir
 
 import time
 from datetime import datetime

@@ -1,4 +1,4 @@
-from fineTuneService.ftConfiguration.ftConfig import GENERAL_MODEL
+from ftConfiguration.ftConfig import GENERAL_MODEL
 
 from openai import OpenAI
 import json
