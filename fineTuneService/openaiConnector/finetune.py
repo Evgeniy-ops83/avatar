@@ -9,10 +9,7 @@ class FineTune:
 
     def __init__(self, request):
         self.client = OpenAI()
-        if 'filepath' in request.keys():
-            self.filepath = Path(request['filepath'])
-        else:
-            self.filepath = Path(FINE_TUNE_DATASET_DIR)
+        self.filepath = request
 
     def createFinetuneFile(self):
         ft_file = self.client.files.create(

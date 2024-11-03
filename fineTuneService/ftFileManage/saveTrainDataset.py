@@ -20,6 +20,7 @@ class DatasetFile:
     def saveTrainFile(self, dataset, file_name):
 
         self.filename = f"{file_name} - {date.today()}"
+
         filepath = f"{DATASET_SAVE_DIR} - {date.today()}"
         with open(filepath, 'a+') as f:
             f.write(json.dumps(dataset) + "\n")
