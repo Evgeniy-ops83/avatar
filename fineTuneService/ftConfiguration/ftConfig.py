@@ -2,3 +2,7 @@ import os
 
 OPENAI_API_KEY = os.environ['OPENAI_API_KEY']
 GENERAL_MODEL = "gpt-4o-mini"
+GENERAL_FT_MODEL = "gpt-4o-mini-2024-07-18"
+
+CH_DB_HOST = os.environ['CH_DB_HOST']
+CH_DB_PORT = 9000
