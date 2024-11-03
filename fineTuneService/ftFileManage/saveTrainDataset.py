@@ -1,4 +1,4 @@
-from fineTuneService.ftConfiguration.ftTrainConfig import DATASET_SAVE_DIR
+from ftConfiguration.ftTrainConfig import DATASET_SAVE_DIR
 
 from datetime import datetime, date
 import json
