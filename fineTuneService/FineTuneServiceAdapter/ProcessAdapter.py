@@ -14,21 +14,21 @@ def hello_world():
 @app.route('/process', methods=['POST'])
 def do_something(question_list=QUESTION_LIST):
 
-    test_process = FtProcess()
+    newProcess = FtProcess()
 
     for question in question_list:
 
-        request_completion = test_process.createRequestFromTemplate(question)
+        request_completion = newProcess.createRequestFromTemplate(question)
 
-        train_completion = test_process.getTrainCompletion(request_completion)
+        train_completion = newProcess.getTrainCompletion(request_completion)
 
-        train_dataset = test_process.createTrainDataset(train_completion)
+        train_dataset = newProcess.createTrainDataset(train_completion)
 
-        dataset_path = test_process.saveDatasetFile(train_dataset)
+        dataset_path = newProcess.saveDatasetFile(train_dataset)
 
-    saveSourceObject('process', test_process.__dict__)
+    saveSourceObject('process', newProcess.__dict__)
 
-    return test_process.__dict__
+    return newProcess.__dict__
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
