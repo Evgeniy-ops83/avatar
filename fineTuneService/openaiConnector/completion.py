@@ -11,7 +11,7 @@ class ChatCompletion:
         self.messages = messages
 
     def getCompletion(self):
-        completion = self.client.Completion.create(
+        completion = openai.Completion.create(
             model=self.model,
             messages=self.messages
         )
