@@ -1,5 +1,5 @@
 from ftModels.Dataset import Dataset, DatasetBuilder
-from fineTuneService.openaiConnector.completion import ChatCompletion
+from openaiConnector.completion import ChatCompletion
 from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL
 from fineTuneService.ftFileManage.saveTrainDataset import DatasetFile
 from fineTuneService.ftStorage.ftClickhouseConnector import saveSourceObject
