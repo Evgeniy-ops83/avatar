@@ -1,5 +1,5 @@
-from fineTuneService.ftConfiguration.ftConfig import GENERAL_FT_MODEL
-from fineTuneService.ftConfiguration.ftTrainConfig import FINE_TUNE_DATASET_DIR, FT_MODEL_SUFFIX
+from ftConfiguration.ftConfig import GENERAL_FT_MODEL
+from ftConfiguration.ftTrainConfig import FINE_TUNE_DATASET_DIR, FT_MODEL_SUFFIX
 
 from openai import OpenAI
 from pathlib import Path

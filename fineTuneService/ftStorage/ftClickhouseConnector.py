@@ -1,4 +1,4 @@
-from fineTuneService.ftConfiguration.ftConfig import CH_DB_HOST, CH_DB_PORT
+from ftConfiguration.ftConfig import CH_DB_HOST, CH_DB_PORT
 from clickhouse_driver import Client
 import json
 
