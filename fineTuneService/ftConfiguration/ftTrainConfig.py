@@ -43,7 +43,7 @@ TRAIN_SYSTEM_REQUEST = \
         """
 TRAIN_USER_REQUEST = \
         """
-        Write an answer to the question about the company based on the information on the {COMPANY_URL} website:
+        Write an answer to the question about the company based on the information on the {} website:
         """
 DATASET_SAVE_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{COMPANY_URL}'
 
