@@ -14,11 +14,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app = Flask(__name__)
 #api = Api(app)
 
-@app.route('/start')
-@cross_origin()
-def hello_world():
-    return 'Hello, world!'
-
 
 @app.route('/process', methods=['POST'])
 @cross_origin()
@@ -50,6 +45,7 @@ def createProcess(question_list=QUESTION_LIST):
 
 
 @app.route('/job', methods=['POST'])
+@cross_origin()
 def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_TUNE_DATASET_DIR+FINE_TUNE_DATASET):
 
     NewJob = FineTuneJob(process_id)
