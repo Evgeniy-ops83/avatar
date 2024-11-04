@@ -25,5 +25,5 @@ class DatasetFile:
         with open(filepath, 'a+') as f:
             f.write(json.dumps(dataset) + "\n")
 
-        return filepath
+        return self.filename
 
