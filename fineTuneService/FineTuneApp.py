@@ -4,8 +4,10 @@ from ftModels.FineTuneJob import FineTuneJob
 #from ftStorage.ftClickhouseConnector import saveSourceObject
 
 from flask import Flask, request, jsonify
+from flask_restx import Api, Resource, reqparse
 
 app = Flask(__name__)
+api = Api(app)
 
 @app.route('/start')
 def hello_world():
