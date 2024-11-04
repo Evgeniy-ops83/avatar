@@ -15,11 +15,13 @@ app = Flask(__name__)
 #api = Api(app)
 
 @app.route('/start')
+@cross_origin()
 def hello_world():
     return 'Hello, world!'
 
 
 @app.route('/process', methods=['POST'])
+@cross_origin()
 def createProcess(question_list=QUESTION_LIST):
 
     request_body = request.get_json()
