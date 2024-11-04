@@ -11,3 +11,5 @@ def createDir(dataset_name):
     f = open(file_to_open)
     print(f.read())
 
+    return file_to_open
+
