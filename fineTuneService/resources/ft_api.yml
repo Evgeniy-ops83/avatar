@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: Process and Job API
+  description: API для создания процессов и работы с заданиями.
+  version: 1.0.0
+
+servers:
+  - url: https://api.example.com/v1
+    description: Основной API сервер
+  - url: http://146.185.208.30:5000
+    description: Стадия тестирования
+
+paths:
+  /process:
+    post:
+      summary: Create new fine-tuning Process
+      description: Создаёт новый процесс обучения на основе предоставленного списка вопросов.
+      parameters:
+        - in: header
+          name: Accept
+          schema:
+            type: string
+            default: "*/*"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_name:
+                  type: string
+                  description: Имя компании для создания процесса
+              required:
+                - company_name
+      responses:
+        '200':
+          description: Успешное создание процесса
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Идентификатор созданного процесса
+                  company_name:
+                    type: string
+                    description: Название компании, связанной с процессом
+                  path:
+                    type: string
+                    description: Путь к сохраненному набору данных
+                  created:
+                    type: string
+                    description: Дата и время создания
+        '400':
+          description: Ошибка запроса — отсутствует JSON-данные
+
+  /job:
+    post:
+      summary: Train new model from process
+      description: Создаёт новое задание на основе идентификатора процесса и файла набора данных.
+      parameters:
+        - in: query
+          name: process_id
+          schema:
+            type: string
+          required: true
+          description: Идентификатор процесса, связанного с заданием
+        - in: query
+          name: filename
+          schema:
+            type: string
+            default: /path/to/dataset/file
+          required: true
+          description: Путь к файлу набора данных для задания
+      requestBody:
+        required: false
+      responses:
+        '200':
+          description: Успешное создание задания
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  job_id:
+                    type: string
+                    description: Идентификатор созданного задания
+                  status:
+                    type: string
+                    description: Статус задания
+        '400':
+          description: Ошибка запроса — неверные данные для задания
