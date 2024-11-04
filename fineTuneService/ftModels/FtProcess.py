@@ -15,16 +15,17 @@ class FtProcess:  # for api return process
 
     def __init__(self, company_name):
         self.id = str(uuid.uuid4())
-        self.company_name = COMPANY_URL
+        self.company_name = company_name
         self.created = str(datetime.now())
+        self.path = 'undefined'
 
-    def createRequestFromTemplate(self, question):  # Create request from template
+    def createRequestFromTemplate(self, question, company_name):  # Create request from template
 
         print(f'The next question is {question}')
 
         request_template = DatasetBuilder()
         system_template = request_template.createDatasetFromTemplate(question, 'system_request')
-        user_template = request_template.createCustomDataset(question, 'user_request')
+        user_template = request_template.createCustomDataset(question, 'user_request', company_name)
 
         system_dataset_obj = Dataset('system_request', self.id)
         system_dataset = system_dataset_obj.createDataset(system_template)
@@ -71,9 +72,10 @@ class FtProcess:  # for api return process
     def saveDatasetFile(self, dataset):
 
         dataset_file = DatasetFile(self.id)
-        dataset_path = dataset_file.saveTrainFile(dataset, self.company_name)  # Save Train Dataset
-        print('dataset_path - ', dataset_path)
+        self.path = dataset_file.saveTrainFile(dataset, self.company_name)  # Save Train Dataset
+        print('dataset_path - ', self.path)
 
         #saveSourceObject('ds_file', dataset_file.__dict__)
 
-        return dataset_path
+        return self.path
+

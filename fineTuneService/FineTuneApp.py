@@ -20,19 +20,19 @@ def do_something(question_list=QUESTION_LIST):
         company_name = COMPANY_URL
         print("error: No JSON data found")
 
-    company_name = request_body.get("name")
+    company_name = request_body.get("company_name")
 
     newProcess = FtProcess(company_name)
 
     for question in question_list:
 
-        request_completion = newProcess.createRequestFromTemplate(question)
+        request_completion = newProcess.createRequestFromTemplate(question, company_name)
 
         train_completion = newProcess.getTrainCompletion(request_completion)
 
         train_dataset = newProcess.createTrainDataset(train_completion)
 
-        dataset_path = newProcess.saveDatasetFile(train_dataset)
+        dataset_path = newProcess.saveDatasetFile(train_dataset, company_name)
 
     #saveSourceObject('process', newProcess.__dict__)
 
