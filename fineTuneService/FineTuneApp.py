@@ -1,5 +1,6 @@
-from ftConfiguration.ftTrainConfig import QUESTION_LIST, COMPANY_URL
+from ftConfiguration.ftTrainConfig import QUESTION_LIST, COMPANY_URL, FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
 from ftModels.FtProcess import FtProcess
+from ftModels.FineTuneJob import FineTuneJob
 #from ftStorage.ftClickhouseConnector import saveSourceObject
 
 from flask import Flask, request, jsonify
@@ -21,22 +22,32 @@ def do_something(question_list=QUESTION_LIST):
         print("error: No JSON data found")
 
     company_name = request_body.get("company_name")
-
     newProcess = FtProcess(company_name)
 
     for question in question_list:
 
-        request_completion = newProcess.createRequestFromTemplate(question, company_name)
-
-        train_completion = newProcess.getTrainCompletion(request_completion)
-
-        train_dataset = newProcess.createTrainDataset(train_completion)
-
-        dataset_path = newProcess.saveDatasetFile(train_dataset, company_name)
+        request_completion = (newProcess
+                              .createRequestFromTemplate(question, company_name))
+        train_completion = (newProcess
+                            .getTrainCompletion(request_completion))
+        train_dataset = (newProcess
+                         .createTrainDataset(train_completion))
+        dataset_path = (newProcess
+                        .saveDatasetFile(train_dataset, company_name))
 
     #saveSourceObject('process', newProcess.__dict__)
 
     return newProcess.__dict__
+
+
+@app.route('/job', methods=['POST'])
+def do_something(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_TUNE_DATASET_DIR+FINE_TUNE_DATASET):
+
+    NewJob = FineTuneJob(process_id)
+    startNewJob = NewJob.createNewFinetuneJob(filename)
+    #saveSourceObject('ft_job', NewJob.__dict__)
+
+    return NewJob.__dict__
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
