@@ -44,7 +44,8 @@ def createProcess(question_list=QUESTION_LIST):
 def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_TUNE_DATASET_DIR+FINE_TUNE_DATASET):
 
     NewJob = FineTuneJob(process_id)
-    startNewJob = NewJob.createNewFinetuneJob(filename)
+    request = {"filepath": FINE_TUNE_DATASET_DIR+filename}
+    startNewJob = NewJob.createNewFinetuneJob(request)
     #saveSourceObject('ft_job', NewJob.__dict__)
 
     return NewJob.__dict__
