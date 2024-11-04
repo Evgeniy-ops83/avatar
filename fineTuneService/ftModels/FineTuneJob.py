@@ -1,7 +1,7 @@
 from ftConfiguration.ftConfig import GENERAL_FT_MODEL
 from ftConfiguration.ftTrainConfig import COMPANY_URL, FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
 from openaiConnector.finetune import FineTune
-from ftStorage.ftClickhouseConnector import saveSourceObject
+#from ftStorage.ftClickhouseConnector import saveSourceObject
 from ftFileManage.CreatePath import createDir
 
 import time
@@ -68,9 +68,10 @@ class FineTuneJob:
         return 200
 
 
+'''
 newJobRequest = {'filename': FINE_TUNE_DATASET_DIR+FINE_TUNE_DATASET}
 NewJob = FineTuneJob('ceef0ceb-9bc8-4c55-92f7-435488393cac')
 startNewJob = NewJob.createNewFinetuneJob(newJobRequest)
 saveSourceObject('ft_job', NewJob.__dict__)
-
+'''
 

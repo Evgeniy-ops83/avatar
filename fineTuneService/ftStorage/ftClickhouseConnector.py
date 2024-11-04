@@ -2,6 +2,7 @@ from ftConfiguration.ftConfig import CH_DB_HOST, CH_DB_PORT
 from clickhouse_driver import Client
 import json
 
+'''
 client = Client(host=CH_DB_HOST, port=CH_DB_PORT, settings={'use_numpy': True})
 
 
@@ -11,3 +12,4 @@ def saveSourceObject(type, object):
                    )
     return 'OK'
 
+'''

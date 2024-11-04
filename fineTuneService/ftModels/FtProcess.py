@@ -2,7 +2,7 @@ from ftModels.Dataset import Dataset, DatasetBuilder
 from openaiConnector.completion import ChatCompletion
 from ftConfiguration.ftTrainConfig import COMPANY_URL
 from ftFileManage.saveTrainDataset import DatasetFile
-from ftStorage.ftClickhouseConnector import saveSourceObject
+#from ftStorage.ftClickhouseConnector import saveSourceObject
 
 import uuid
 from datetime import datetime
@@ -32,8 +32,8 @@ class FtProcess:  # for api return process
         user_dataset_obj = Dataset('user_request', self.id)
         user_dataset = user_dataset_obj.createDataset(user_template)
 
-        saveSourceObject('dataset', system_dataset_obj.__dict__)
-        saveSourceObject('dataset', user_dataset_obj.__dict__)
+        #saveSourceObject('dataset', system_dataset_obj.__dict__)
+        #saveSourceObject('dataset', user_dataset_obj.__dict__)
 
         request_completion = request_template.createDatasetList(system_dataset, user_dataset)
         print('request_completion - ', request_completion)
@@ -59,8 +59,8 @@ class FtProcess:  # for api return process
         assist_completion_obj = Dataset('assist_completion', self.id)
         assist_completion_ds = assist_completion_obj.createDataset(assist_train_completion)
 
-        saveSourceObject('dataset', user_completion_obj.__dict__)
-        saveSourceObject('dataset', assist_completion_obj.__dict__)
+        #saveSourceObject('dataset', user_completion_obj.__dict__)
+        #saveSourceObject('dataset', assist_completion_obj.__dict__)
 
         train_completion_list = train_template.createDatasetList(user_completion_ds, assist_completion_ds)
         train_dataset = train_template.createMessageTrainList(train_completion_list)
@@ -74,6 +74,6 @@ class FtProcess:  # for api return process
         dataset_path = dataset_file.saveTrainFile(dataset, self.company_url)  # Save Train Dataset
         print('dataset_path - ', dataset_path)
 
-        saveSourceObject('ds_file', dataset_file.__dict__)
+        #saveSourceObject('ds_file', dataset_file.__dict__)
 
         return dataset_path

@@ -1,6 +1,6 @@
 from ftConfiguration.ftTrainConfig import QUESTION_LIST
 from ftModels.FtProcess import FtProcess
-from ftStorage.ftClickhouseConnector import saveSourceObject
+#from ftStorage.ftClickhouseConnector import saveSourceObject
 
 from flask import Flask
 
