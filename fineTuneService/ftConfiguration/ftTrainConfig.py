@@ -51,6 +51,6 @@ DATASET_SAVE_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resour
 
 FINE_TUNE_DATASET = '1c.ru - 2024-11-02'
 FT_MODEL_SUFFIX = 'avatar-model'    # for API
-FINE_TUNE_DATASET_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\\'
+FINE_TUNE_DATASET_DIR = f'/home/ubuntu/assistApp/ai_assist/fineTuneService/resources/datasets/'
 
 

@@ -21,7 +21,7 @@ class DatasetFile:
 
         self.filename = f"{file_name} - {date.today()}"
 
-        filepath = f"{DATASET_SAVE_DIR} - {date.today()}"
+        filepath = f"{DATASET_SAVE_DIR + self.filename}"
         with open(filepath, 'a+') as f:
             f.write(json.dumps(dataset) + "\n")
 
