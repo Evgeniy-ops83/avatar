@@ -69,7 +69,7 @@ class FtProcess:  # for api return process
 
         return train_dataset
 
-    def saveDatasetFile(self, dataset):
+    def saveDatasetFile(self, dataset, company_name):
 
         dataset_file = DatasetFile(self.id)
         self.path = dataset_file.saveTrainFile(dataset, self.company_name)  # Save Train Dataset
