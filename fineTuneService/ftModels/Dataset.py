@@ -1,4 +1,4 @@
-from ftConfiguration.ftTrainConfig import SYSTEM_DATASET_TEMPLATE, USER_DATASET_TEMPLATE, TRAIN_SYSTEM_REQUEST, TRAIN_USER_REQUEST, ASSIST_DATASET_TEMPLATE
+from ftConfiguration.ftTrainConfig import COMPANY_URL, SYSTEM_DATASET_TEMPLATE, USER_DATASET_TEMPLATE, TRAIN_SYSTEM_REQUEST, TRAIN_USER_REQUEST, ASSIST_DATASET_TEMPLATE
 
 from pydantic import BaseModel
 import uuid
@@ -50,9 +50,24 @@ class DatasetBuilder:
 
         if ds_type == 'user_request':
             request_template = USER_DATASET_TEMPLATE
-            request_template['user_request'] = TRAIN_USER_REQUEST + question
+            request_template['user_request'] = TRAIN_USER_REQUEST.format(COMPANY_URL) + question
 
         return request_template
+
+    def createCustomDataset(self, question, ds_type, company_name):
+
+        request_template = {}
+
+        if ds_type == 'system_request':
+            request_template = SYSTEM_DATASET_TEMPLATE
+            request_template['system_request'] = TRAIN_SYSTEM_REQUEST
+
+        if ds_type == 'user_request':
+            request_template = USER_DATASET_TEMPLATE
+            request_template['user_request'] = TRAIN_USER_REQUEST.format(company_name) + question
+
+        return request_template
+
 
     def createTrainDataset(self, ds_type, request):
 

@@ -42,7 +42,7 @@ TRAIN_SYSTEM_REQUEST = \
         and for the role 'assistant_request' insert your answer to the question into the value
         """
 TRAIN_USER_REQUEST = \
-        f"""
+        """
         Write an answer to the question about the company based on the information on the {COMPANY_URL} website:
         """
 DATASET_SAVE_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{COMPANY_URL}'
