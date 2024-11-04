@@ -13,7 +13,7 @@ def hello_world():
 
 
 @app.route('/process', methods=['POST'])
-def do_something(question_list=QUESTION_LIST):
+def createProcess(question_list=QUESTION_LIST):
 
     request_body = request.get_json()
 
@@ -41,7 +41,7 @@ def do_something(question_list=QUESTION_LIST):
 
 
 @app.route('/job', methods=['POST'])
-def do_something(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_TUNE_DATASET_DIR+FINE_TUNE_DATASET):
+def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_TUNE_DATASET_DIR+FINE_TUNE_DATASET):
 
     NewJob = FineTuneJob(process_id)
     startNewJob = NewJob.createNewFinetuneJob(filename)
