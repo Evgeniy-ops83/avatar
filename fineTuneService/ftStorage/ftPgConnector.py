@@ -19,7 +19,7 @@ def saveSourceObject():
     with pg_connect.client().cursor() as cur:
         cur.execute(
             f"""
-            INSERT INTO avatar_source.dataset {Columns} VALUES (%s, %s, %s, %s, %s),
+            INSERT INTO avatar_source.dataset ({Columns}) VALUES (%s, %s, %s, %s, %s),
             """,
             tuple(Dataset.values())
         )
