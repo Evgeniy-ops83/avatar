@@ -1,4 +1,4 @@
-from ftStorage.PgConnect import ConnectionBuilder
+from fineTuneService.ftStorage.PgConnect import ConnectionBuilder
 import json
 
 Dataset = {
