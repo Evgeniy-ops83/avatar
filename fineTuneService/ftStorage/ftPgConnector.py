@@ -17,13 +17,15 @@ pg_connect = ConnectionBuilder.pg_conn()
 
 def saveSourceObject():
 
-    with pg_connect.connection().cursor() as cur:
-        cur.execute(
-            f"""
-            INSERT INTO avatar_source.dataset ({Columns}) VALUES (%s, %s, %s, %s, %s, %s)
-            """,
-            tuple(Dataset.values())
-        )
+    with pg_connect.connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                f"""
+                INSERT INTO avatar_source.dataset ({Columns}) VALUES (%s, %s, %s, %s, %s, %s)
+                """,
+                tuple(Dataset.values())
+            )
+        conn.commit()
 
     return 'Object Saved'
 
