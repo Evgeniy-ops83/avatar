@@ -25,4 +25,6 @@ def saveSourceObject():
             tuple(Dataset.values())
         )
 
+        cur.commit()
+
     return 'Object Saved'
