@@ -21,13 +21,7 @@ def saveSourceObject():
             f"""
             INSERT INTO avatar_source.dataset ({Columns}) VALUES (%s, %s, %s, %s, %s),
             """,
-            {
-                'id': Dataset['id'],
-                'ds_type': Dataset['id'],
-                'process_id': Dataset['id'],
-                'updated': Dataset['id'],
-                'ds_role': Dataset['id']
-            }
+            tuple(Dataset.values())
         )
         obj = cur.fetchone()
 
