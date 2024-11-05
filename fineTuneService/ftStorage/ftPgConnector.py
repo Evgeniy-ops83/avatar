@@ -1,4 +1,4 @@
-from fineTuneService.ftConfiguration.ftConfig import PG_CONNECTION
+from ftConfiguration.ftConfig import PG_CONNECTION
 
 from contextlib import contextmanager
 from typing import Generator
