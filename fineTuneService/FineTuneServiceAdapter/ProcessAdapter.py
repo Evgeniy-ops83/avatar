@@ -26,7 +26,7 @@ def do_something(question_list=QUESTION_LIST):
 
         dataset_path = newProcess.saveDatasetFile(train_dataset)
 
-    saveSourceObject('process', newProcess.__dict__)
+    #saveSourceObject('process', newProcess.__dict__)
 
     return newProcess.__dict__
 

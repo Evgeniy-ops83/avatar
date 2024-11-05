@@ -48,7 +48,7 @@ class FineTuneJob:
 
         print('Fine tune is in process now. Please wait')
         self.ft_status = ft_job.getFinetuneJob(self.key).status
-        print('train_ft_job_status - ', self.ft_status)
+        print('job_status - ', self.ft_status)
 
         while self.ft_status not in ['succeeded', 'failed']:
 
@@ -56,7 +56,7 @@ class FineTuneJob:
 
             if train_ft_job_info.status != self.ft_status:
                 self.ft_status = train_ft_job_info.status
-                print('train_ft_job_status - ', self.ft_status)
+                print('job_status - ', self.ft_status)
 
             if self.ft_status == 'succeeded':
                 self.ft_model = train_ft_job_info.fine_tuned_model
