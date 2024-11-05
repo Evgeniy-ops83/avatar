@@ -6,10 +6,11 @@ Dataset = {
     'ds_type': 'test',
     'process_id': 'test',
     'updated': 'test',
-    'ds_role': 'test'
+    'ds_role': 'test',
+    'content': 'test'
 }
 
-Columns = 'id, ds_type, process_id, updated, ds_role'
+Columns = 'id, ds_type, process_id, updated, ds_role, content'
 
 
 pg_connect = ConnectionBuilder.pg_conn()
@@ -19,10 +20,13 @@ def saveSourceObject():
     with pg_connect.client().cursor() as cur:
         cur.execute(
             f"""
-            INSERT INTO avatar_source.dataset ({Columns}) VALUES (%s, %s, %s, %s, %s)
+            INSERT INTO avatar_source.dataset ({Columns}) VALUES (%s, %s, %s, %s, %s, %s)
             """,
             tuple(Dataset.values())
         )
         obj = cur.fetchone()
+
+        cur.commit()
+        cur.close()
 
     return 'Object Saved'
