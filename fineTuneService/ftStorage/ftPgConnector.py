@@ -24,7 +24,7 @@ def saveSourceObject():
             """,
             tuple(Dataset.values())
         )
-        obj = cur.fetchone()
+        obj = cur.fetchall()
 
         cur.commit()
         cur.close()
