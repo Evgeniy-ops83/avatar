@@ -3,14 +3,10 @@ from ftModels.FtProcess import FtProcess
 from ftModels.FineTuneJob import FineTuneJob
 from ftStorage.ftPgConnector import saveSourceObject
 
-
 from flask import Flask
 
-app = Flask(__name__)
 
-@app.route('/start')
-def hello_world():
-    return 'Hello, world!'
+app = Flask(__name__)
 
 
 @app.route('/process', methods=['POST'])
