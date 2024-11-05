@@ -30,7 +30,7 @@ def do_something(question_list=QUESTION_LIST):
 
     return newProcess.__dict__
 
-@app.route('/save')
+@app.route('/save', methods=['POST'])
 def hello_world():
     saveSourceObject()
     return 'saveSourceObject !'
