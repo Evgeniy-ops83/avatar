@@ -9,7 +9,7 @@ Dataset = {
     'ds_role': 'test'
 }
 
-Columns = ('id', 'ds_type', 'process_id', 'updated', 'ds_role')
+Columns = 'id, ds_type, process_id, updated, ds_role'
 
 
 pg_connect = ConnectionBuilder.pg_conn()
