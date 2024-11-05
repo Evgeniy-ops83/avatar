@@ -19,9 +19,15 @@ def saveSourceObject():
     with pg_connect.client().cursor() as cur:
         cur.execute(
             f"""
-            INSERT INTO avatar_source.dataset ({Columns}) VALUES (%s),
+            INSERT INTO avatar_source.dataset ({Columns}) VALUES (%s, %s, %s, %s, %s),
             """,
-            Dataset
+            {
+                'id': Dataset['id'],
+                'ds_type': Dataset['id'],
+                'process_id': Dataset['id'],
+                'updated': Dataset['id'],
+                'ds_role': Dataset['id']
+            }
         )
         obj = cur.fetchone()
 
