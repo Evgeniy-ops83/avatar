@@ -27,3 +27,4 @@ def saveSourceObject():
 
     return 'Object Saved'
 
+a = saveSourceObject()
