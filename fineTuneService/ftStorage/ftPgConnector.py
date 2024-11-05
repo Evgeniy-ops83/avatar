@@ -26,5 +26,3 @@ def saveSourceObject():
         obj = cur.fetchone()
 
     return 'Object Saved'
-
-a = saveSourceObject()
