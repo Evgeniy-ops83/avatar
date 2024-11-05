@@ -1,6 +1,6 @@
 from ftConfiguration.ftTrainConfig import QUESTION_LIST
 from ftModels.FtProcess import FtProcess
-#from ftStorage.ftClickhouseConnector import saveSourceObject
+from ftStorage.ftPgConnector import saveSourceObject
 
 from flask import Flask
 
@@ -29,6 +29,11 @@ def do_something(question_list=QUESTION_LIST):
     #saveSourceObject('process', newProcess.__dict__)
 
     return newProcess.__dict__
+
+@app.route('/save')
+def hello_world():
+    saveSourceObject()
+    return 'saveSourceObject !'
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
