@@ -1,14 +1,15 @@
 from fineTuneService.ftStorage.ftPgConnector import ConnectionBuilder
 
 
+
 pg_connect = ConnectionBuilder.pg_conn()
 
-with pg_connect.connection() as conn:
-    conn.execute(
+with pg_connect.client().cursor() as cur:
+    cur.execute(
         """
         SELECT version();
         """
     )
-    obj = conn.fetchone()
+    obj = cur.fetchone()
 
     print(obj)
