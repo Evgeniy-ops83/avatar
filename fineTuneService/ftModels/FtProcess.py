@@ -26,27 +26,28 @@ class FtProcess:  # for api return process
         ds_type = 'system_request'
         process_id = self.id
 
-        SystemRequest = DatasetBuilder(
-                ds_type,
-                process_id
-            ).createDatasetFromTemplate(
-            question
+        SystemObject = DatasetBuilder(
+            ds_type,
+            process_id
         )
 
-        SystemDbModel = SystemRequest.createNewDataset()
+        SystemRequest = SystemObject.createDatasetFromTemplate(
+            question
+        )
+        SystemDbModel = SystemObject.createNewDataset()
 
         ds_type = 'user_request',
         process_id = self.id
 
-        UserRequest = DatasetBuilder(
+        UserObject = DatasetBuilder(
             ds_type,
             process_id
-        ).createCustomDataset(
+        )
+        UserRequest = UserObject.createCustomDataset(
             question,
             self.company_name
         )
-
-        UserDbModel = UserRequest.createNewDataset()
+        UserDbModel = UserObject.createNewDataset()
 
         #saveObject(SystemDbModel.ds_type, SystemDbModel.__dict__)
         #saveObject(UserDbModel.ds_type, UserDbModel.__dict__)
