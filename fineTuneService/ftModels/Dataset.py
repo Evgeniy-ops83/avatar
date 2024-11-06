@@ -41,18 +41,15 @@ class Dataset:
 class DatasetBuilder:
 
     def __init__(self, ds_type, process_id):
-        self.ds_type = ds_type
         self.process_id = process_id
 
-    def createNewDataset(self):
+    def createNewDataset(self, ds_type):
 
-        newDataset = Dataset(self.ds_type, self.process_id)
+        newDataset = Dataset(ds_type, self.process_id).createDataset(request)
 
         return newDataset
 
-    def createDatasetFromTemplate(self, question):
-
-        ds_type = self.ds_type
+    def createDatasetFromTemplate(self, ds_type, *kwargs):
 
         request_template = {}
 
@@ -62,13 +59,11 @@ class DatasetBuilder:
 
         if ds_type == 'user_request':
             request_template = USER_DATASET_TEMPLATE
-            request_template['user_request'] = TRAIN_USER_REQUEST.format(COMPANY_URL) + question
+            request_template['user_request'] = TRAIN_USER_REQUEST.format(COMPANY_URL) + kwargs['question']
 
         return request_template
 
-    def createCustomDataset(self, question, company_name):
-
-        ds_type = self.ds_type
+    def createCustomDataset(self, question, company_name, ds_type):
 
         request_template = {}
 
@@ -82,9 +77,7 @@ class DatasetBuilder:
 
         return request_template
 
-    def createTrainDataset(self, request):
-
-        ds_type = self.ds_type
+    def createTrainDataset(self, request, ds_type):
 
         request_template = {}
 

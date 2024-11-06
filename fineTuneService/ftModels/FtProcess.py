@@ -23,34 +23,28 @@ class FtProcess:  # for api return process
 
         print(f'The next question is {question}')
 
-        ds_type = 'system_request'
-        process_id = self.id
-
-        SystemObject = DatasetBuilder(
-            ds_type,
-            process_id
+        Object = DatasetBuilder(
+            process_id=self.id
         )
 
-        SystemRequest = SystemObject.createDatasetFromTemplate(
-            question
-        )
-        SystemDbModel = SystemObject.createNewDataset()
+        SystemObject = (Object
+                        .createNewDataset(ds_type='system_request'))
+        SystemRequest = (Object
+                         .createDatasetFromTemplate(question, ds_type='system_request'))
 
-        ds_type = 'user_request',
-        process_id = self.id
+        UserObject = (Object
+                      .createNewDataset(ds_type='user_request'))
+        UserRequest = (Object
+                       .createCustomDataset(question, self.company_name, ds_type='user_request'))
 
-        UserObject = DatasetBuilder(
-            ds_type,
-            process_id
-        )
-        UserRequest = UserObject.createCustomDataset(
-            question,
-            self.company_name
-        )
-        UserDbModel = UserObject.createNewDataset()
+        saveObject(SystemObject.ds_type,
+                   Object.
+                   createNewDataset('system_request').__dict__)
 
-        #saveObject(SystemDbModel.ds_type, SystemDbModel.__dict__)
-        #saveObject(UserDbModel.ds_type, UserDbModel.__dict__)
+        saveObject(UserObject
+                   .createNewDataset('user_request'),
+                   UserObject
+                   .createNewDataset('user_request').__dict__)
 
         completion_dataset = Dataset.createDatasetList(
             SystemRequest,
