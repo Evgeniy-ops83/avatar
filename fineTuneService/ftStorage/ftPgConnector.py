@@ -1,5 +1,5 @@
 from ftStorage.PgConnect import ConnectionBuilder
-from fineTuneService.ftConfiguration.ftConfig import DATASET_COLUMNS
+from ftConfiguration.ftConfig import DATASET_COLUMNS
 
 pg_connect = ConnectionBuilder.pg_conn()
 
