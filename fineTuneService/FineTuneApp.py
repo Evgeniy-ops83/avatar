@@ -80,20 +80,4 @@ def createProcess():
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
 
-'''
-    train_completion = newProcess
-    .getTrainCompletion
-    (
-    completion_dataset
-    )
 
-    train_dataset = (newProcess
-    .createTrainDataset(train_completion))
-
-    dataset_path = (newProcess
-    .saveDatasetFile(train_dataset, company_name))
-
-        saveObject('process', newProcess.__dict__)
-            '''
-
-# return newProcess.__dict__

@@ -23,33 +23,37 @@ class FtProcess:  # for api return process
 
         print(f'The next question is {question}')
 
-        dataset_type = 'system_request'
+        ds_type = 'system_request'
         process_id = self.id
 
-        SystemDataset = DatasetBuilder(
-                dataset_type,
+        SystemRequest = DatasetBuilder(
+                ds_type,
                 process_id
             ).createDatasetFromTemplate(
             question
         )
 
-        dataset_type = 'user_request',
+        SystemDbModel = SystemRequest.createNewDataset()
+
+        ds_type = 'user_request',
         process_id = self.id
 
-        UserDataset = DatasetBuilder(
-            dataset_type,
+        UserRequest = DatasetBuilder(
+            ds_type,
             process_id
         ).createCustomDataset(
             question,
             self.company_name
         )
 
-        saveObject(SystemDataset.ds_type, SystemDataset.__dict__)
-        saveObject(UserDataset.ds_type, UserDataset.__dict__)
+        UserDbModel = UserRequest.createNewDataset()
+
+        #saveObject(SystemDbModel.ds_type, SystemDbModel.__dict__)
+        #saveObject(UserDbModel.ds_type, UserDbModel.__dict__)
 
         completion_dataset = Dataset.createDatasetList(
-            SystemDataset,
-            UserDataset
+            SystemRequest,
+            UserRequest
         )
 
         print('completion_dataset - ', completion_dataset)
@@ -112,6 +116,25 @@ class FtProcess:  # for api return process
         saveDataset('ds_file', dataset_file.__dict__)
 
         return self.path
+        
+        
+        
+    train_completion = newProcess
+    .getTrainCompletion
+    (
+    completion_dataset
+    )
+
+    train_dataset = (newProcess
+    .createTrainDataset(train_completion))
+
+    dataset_path = (newProcess
+    .saveDatasetFile(train_dataset, company_name))
+
+        saveObject('process', newProcess.__dict__)
+            
+
+return newProcess.__dict__
         
         '''
 
