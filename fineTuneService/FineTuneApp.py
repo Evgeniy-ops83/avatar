@@ -59,15 +59,15 @@ def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_T
 
 @app.route('/process-test', methods=['POST'])
 @cross_origin()
-def createProcess(question):
+def createProcess(request):
 
     request_body = request.get_json()
 
     if request_body is None:
-        company_name = COMPANY_URL
         raise ValueError('error: No JSON data found')
 
     company_name = request_body.get("company_name")
+    question = request_body.get("question")
 
     newProcess = FtProcess(company_name)
 
