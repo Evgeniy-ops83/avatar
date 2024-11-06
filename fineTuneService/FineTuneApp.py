@@ -30,10 +30,10 @@ def createProcess(question_list=QUESTION_LIST):
 
     for question in question_list:
 
-        request_completion = (newProcess
+        completion_dataset = (newProcess
                               .createRequestFromTemplate(question, company_name))
         train_completion = (newProcess
-                            .getTrainCompletion(request_completion))
+                            .getTrainCompletion(completion_dataset))
         train_dataset = (newProcess
                          .createTrainDataset(train_completion))
         dataset_path = (newProcess

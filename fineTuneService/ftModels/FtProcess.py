@@ -19,7 +19,7 @@ class FtProcess:  # for api return process
         self.created = str(datetime.now())
         self.path = 'undefined'
 
-    def createRequestFromTemplate(self, question, company_name):  # Create newDataset from template
+    def createRequestFromTemplate(self, question):  # Create newDataset from template
 
         print(f'The next question is {question}')
 
@@ -58,29 +58,39 @@ class FtProcess:  # for api return process
 
     def getTrainCompletion(self, request_completion):  # Send request to ChatGPT
 
-        train_completion = ChatCompletion(request_completion).getCompletionJson()
+        train_completion = (ChatCompletion(
+            request_completion
+        ).getCompletionJson())
         print('train_completion - ', train_completion)
 
         return train_completion
 
     def createTrainDataset(self, request):  # Format GPT response for Train Dataset
 
-        train_template = DatasetBuilder()
-        user_train_completion = (train_template
-                                 .createTrainDataset('user_completion', request['user_request']))
-        assist_train_completion = (train_template
-                                   .createTrainDataset('assist_completion', request['assistant_request']))
+        ds_type = 'user_completion'
+        process_id = self.id
 
-        user_completion_obj = Dataset('user_completion', self.id)
-        user_completion_ds = (user_completion_obj
-                              .createDataset(user_train_completion))
+        userCompletion = DatasetBuilder(
+            ds_type,
+            process_id
+        ).createTrainDataset(
+            ds_type,
+            request=request['user_request']
+        )
 
-        assist_completion_obj = Dataset('assist_completion', self.id)
-        assist_completion_ds = (assist_completion_obj
-                                .createDataset(assist_train_completion))
+        ds_type = 'assist_completion'
+        process_id = self.id
 
-        saveDataset('dataset', user_completion_obj.__dict__)
-        saveDataset('dataset', assist_completion_obj.__dict__)
+        assistCompletion = DatasetBuilder(
+            ds_type,
+            process_id
+        ).createTrainDataset(
+            ds_type,
+            request=request['assistant_request']
+        )
+
+        saveDataset('dataset', userCompletion.__dict__)
+        saveDataset('dataset', assistCompletion.__dict__)
 
         train_completion_list = (train_template
                                  .createDatasetList(user_completion_ds, assist_completion_ds))
