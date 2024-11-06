@@ -1,7 +1,7 @@
 from ftConfiguration.ftTrainConfig import QUESTION_LIST, COMPANY_URL, FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
 from ftModels.FtProcess import FtProcess
 from ftModels.FineTuneJob import FineTuneJob
-from ftStorage.ftPgConnector import saveSourceObject
+from ftStorage.ftPgConnector import saveDataset
 
 from flask import Flask
 
@@ -24,7 +24,7 @@ def do_something(question_list=QUESTION_LIST):
 
         dataset_path = newProcess.saveDatasetFile(train_dataset)
 
-    #saveSourceObject('process', newProcess.__dict__)
+    #saveDataset('process', newProcess.__dict__)
 
     return newProcess.__dict__
 

@@ -1,8 +1,7 @@
 from ftConfiguration.ftTrainConfig import QUESTION_LIST, COMPANY_URL, FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
 from ftModels.FtProcess import FtProcess
 from ftModels.FineTuneJob import FineTuneJob
-from ftStorage.ftPgConnector import saveSourceObject
-#from ftStorage.ftClickhouseConnector import saveSourceObject
+from ftStorage.ftPgConnector import saveObject
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
@@ -40,7 +39,7 @@ def createProcess(question_list=QUESTION_LIST):
         dataset_path = (newProcess
                         .saveDatasetFile(train_dataset, company_name))
 
-    #saveSourceObject('process', newProcess.__dict__)
+    saveObject('process', newProcess.__dict__)
 
     return newProcess.__dict__
 
@@ -52,14 +51,10 @@ def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_T
     NewJob = FineTuneJob(process_id)
     request = {"filepath": FINE_TUNE_DATASET_DIR+filename}
     startNewJob = NewJob.createNewFinetuneJob(request)
-    #saveSourceObject('ft_job', NewJob.__dict__)
+    saveObject('ft_job', NewJob.__dict__)
 
     return NewJob.__dict__
 
-@app.route('/save', methods=['POST'])
-def hello_world():
-    saveSourceObject()
-    return 'saveSourceObject !'
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
