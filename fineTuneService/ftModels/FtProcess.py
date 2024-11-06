@@ -23,21 +23,21 @@ class FtProcess:  # for api return process
 
         print(f'The next question is {question}')
 
-        ds_type = 'system_request'
+        dataset_type = 'system_request'
         process_id = self.id
 
         SystemDataset = DatasetBuilder(
-                ds_type,
+                dataset_type,
                 process_id
             ).createDatasetFromTemplate(
             question
         )
 
-        ds_type = 'user_request',
+        dataset_type = 'user_request',
         process_id = self.id
 
         UserDataset = DatasetBuilder(
-            ds_type,
+            dataset_type,
             process_id
         ).createCustomDataset(
             question,

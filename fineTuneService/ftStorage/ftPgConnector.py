@@ -1,12 +1,12 @@
 from ftStorage.PgConnect import ConnectionBuilder
-from ftConfiguration.ftConfig import DATASET_COLUMNS
+from ftConfiguration.ftConfig import COLUMNS
 
 pg_connect = ConnectionBuilder.pg_conn()
 
 
 def saveObject(table, object):
 
-    columns = DATASET_COLUMNS[table]
+    columns = COLUMNS[table]
 
     with pg_connect.connection() as conn:
         with conn.cursor() as cur:
