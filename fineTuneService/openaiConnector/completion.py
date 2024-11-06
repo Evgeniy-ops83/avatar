@@ -1,4 +1,4 @@
-from fineTuneService.ftConfiguration.ftConfig import GENERAL_MODEL
+from ftConfiguration.ftConfig import GENERAL_MODEL
 
 from openai import OpenAI
 import json
@@ -11,6 +11,7 @@ class ChatCompletion:
         self.messages = messages
 
     def getCompletion(self):
+        # openai.Completion.create(...)
         completion = self.client.chat.completions.create(
             model=self.model,
             messages=self.messages

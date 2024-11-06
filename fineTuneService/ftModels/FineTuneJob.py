@@ -1,7 +1,7 @@
-from fineTuneService.ftConfiguration.ftConfig import GENERAL_FT_MODEL
-from fineTuneService.ftConfiguration.ftTrainConfig import COMPANY_URL, FINE_TUNE_DATASET_DIR
-from fineTuneService.openaiConnector.finetune import FineTune
-from fineTuneService.ftStorage.ftClickhouseConnector import saveSourceObject
+from ftConfiguration.ftConfig import GENERAL_FT_MODEL
+from ftConfiguration.ftTrainConfig import COMPANY_URL, FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
+from openaiConnector.finetune import FineTune
+from ftFileManage.CreatePath import createDir
 
 import time
 from datetime import datetime
@@ -30,7 +30,12 @@ class FineTuneJob:
         self.ft_file_id = 'undefined'
         self.created = str(datetime.now())
 
-    def createNewFinetuneJob(self, filepath):
+    def createNewFinetuneJob(self, request):
+
+        if 'filename' in request.keys():
+            filepath = createDir(request['filepath'])
+        else:
+            filepath = createDir(FINE_TUNE_DATASET_DIR)
 
         ft_job = FineTune(filepath)
 
@@ -42,29 +47,22 @@ class FineTuneJob:
 
         print('Fine tune is in process now. Please wait')
         self.ft_status = ft_job.getFinetuneJob(self.key).status
-        print('train_ft_job_status - ', self.ft_status)
+        print('job_status - ', self.ft_status)
 
         while self.ft_status not in ['succeeded', 'failed']:
 
-            train_ft_job_info = ft_job.getFinetuneJob(self.key)
+            train_job = ft_job.getFinetuneJob(self.key)
 
-            if train_ft_job_info.status != self.ft_status:
-                self.ft_status = train_ft_job_info.status
-                print('train_ft_job_status - ', self.ft_status)
+            if train_job.status != self.ft_status:
+                self.ft_status = train_job.status
+                print('job_status - ', self.ft_status)
 
             if self.ft_status == 'succeeded':
-                self.ft_model = train_ft_job_info.fine_tuned_model
+                self.ft_model = train_job.fine_tuned_model
 
             time.sleep(15)
 
         print(f'Training successfully finished for job {self.key}')
 
         return 200
-
-
-newJobRequest = {'filepath': FINE_TUNE_DATASET_DIR}
-NewJob = FineTuneJob('ceef0ceb-9bc8-4c55-92f7-435488393cac')
-startNewJob = NewJob.createNewFinetuneJob(newJobRequest)
-saveSourceObject('ft_job', NewJob.__dict__)
-
 
