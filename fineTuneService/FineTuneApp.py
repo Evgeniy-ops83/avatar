@@ -59,7 +59,7 @@ def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_T
 
 @app.route('/process-test', methods=['POST'])
 @cross_origin()
-def createProcess(request):
+def createProcess():
 
     request_body = request.get_json()
 
