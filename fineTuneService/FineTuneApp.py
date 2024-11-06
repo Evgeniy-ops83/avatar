@@ -55,6 +55,37 @@ def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_T
 
     return NewJob.__dict__
 
+@app.route('/process-test', methods=['POST'])
+@cross_origin()
+def createProcess(question_list=QUESTION_LIST):
+
+    request_body = request.get_json()
+
+    if request_body is None:
+        company_name = COMPANY_URL
+        raise ValueError('error: No JSON data found')
+
+    company_name = request_body.get("company_name")
+    newProcess = FtProcess(company_name)
+
+    for question in question_list:
+
+        completion_dataset = (newProcess
+                              .createRequestFromTemplate(question))
+
+        '''
+        train_completion = (newProcess
+                            .getTrainCompletion(completion_dataset))
+        train_dataset = (newProcess
+                         .createTrainDataset(train_completion))
+        dataset_path = (newProcess
+                        .saveDatasetFile(train_dataset, company_name))
+
+    saveObject('process', newProcess.__dict__)
+        '''
+        return completion_dataset
+    #return newProcess.__dict__
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
