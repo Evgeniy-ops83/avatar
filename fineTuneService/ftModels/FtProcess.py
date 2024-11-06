@@ -2,7 +2,7 @@ from ftModels.Dataset import Dataset, DatasetBuilder
 from openaiConnector.completion import ChatCompletion
 from ftConfiguration.ftTrainConfig import COMPANY_URL
 from ftFileManage.saveTrainDataset import DatasetFile
-from ftStorage.ftPgConnector import saveDataset
+from ftStorage.ftPgConnector import saveObject
 
 import uuid
 from datetime import datetime
@@ -44,8 +44,8 @@ class FtProcess:  # for api return process
             self.company_name
         )
 
-        saveDataset(SystemDataset.ds_type, SystemDataset.__dict__)
-        saveDataset(UserDataset.ds_type, UserDataset.__dict__)
+        saveObject(SystemDataset.ds_type, SystemDataset.__dict__)
+        saveObject(UserDataset.ds_type, UserDataset.__dict__)
 
         completion_dataset = Dataset.createDatasetList(
             SystemDataset,
@@ -65,6 +65,7 @@ class FtProcess:  # for api return process
 
         return train_completion
 
+    '''
     def createTrainDataset(self, request):  # Format GPT response for Train Dataset
 
         ds_type = 'user_completion'
@@ -89,16 +90,18 @@ class FtProcess:  # for api return process
             request=request['assistant_request']
         )
 
-        saveDataset('dataset', userCompletion.__dict__)
-        saveDataset('dataset', assistCompletion.__dict__)
+        saveObject('dataset', userCompletion.__dict__)
+        saveObject('dataset', assistCompletion.__dict__)
 
+        
         train_completion_list = (train_template
                                  .createDatasetList(user_completion_ds, assist_completion_ds))
         train_dataset = (train_template
                          .createMessageTrainList(train_completion_list))
         print('train_dataset - ', train_dataset)
-
-        return train_dataset
+        
+        
+        return 200
 
     def saveDatasetFile(self, dataset, company_name):
 
@@ -109,4 +112,6 @@ class FtProcess:  # for api return process
         saveDataset('ds_file', dataset_file.__dict__)
 
         return self.path
+        
+        '''
 

@@ -14,7 +14,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app = Flask(__name__)
 #api = Api(app)
 
-
+'''
 @app.route('/process', methods=['POST'])
 @cross_origin()
 def createProcess(question_list=QUESTION_LIST):
@@ -44,6 +44,7 @@ def createProcess(question_list=QUESTION_LIST):
     return newProcess.__dict__
 
 
+
 @app.route('/job', methods=['POST'])
 @cross_origin()
 def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_TUNE_DATASET_DIR+FINE_TUNE_DATASET):
@@ -54,6 +55,7 @@ def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_T
     saveObject('ft_job', NewJob.__dict__)
 
     return NewJob.__dict__
+'''
 
 @app.route('/process-test', methods=['POST'])
 @cross_origin()
@@ -73,9 +75,6 @@ def createProcess(question):
                           .createRequestFromTemplate(question))
 
     return completion_dataset
-
-
-
 
 
 if __name__ == '__main__':
