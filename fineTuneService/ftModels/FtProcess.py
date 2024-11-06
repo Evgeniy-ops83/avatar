@@ -19,27 +19,42 @@ class FtProcess:  # for api return process
         self.created = str(datetime.now())
         self.path = 'undefined'
 
-    def createRequestFromTemplate(self, question, company_name):  # Create request from template
+    def createRequestFromTemplate(self, question, company_name):  # Create newDataset from template
 
         print(f'The next question is {question}')
 
-        request_template = DatasetBuilder()
-        system_template = request_template.createDatasetFromTemplate(question, 'system_request')
-        user_template = request_template.createCustomDataset(question, 'user_request', company_name)
+        ds_type = 'system_request'
+        process_id = self.id
 
-        system_dataset_obj = Dataset('system_request', self.id)
-        system_dataset = system_dataset_obj.createDataset(system_template)
+        SystemDataset = DatasetBuilder(
+                ds_type,
+                process_id
+            ).createDatasetFromTemplate(
+            question
+        )
 
-        user_dataset_obj = Dataset('user_request', self.id)
-        user_dataset = user_dataset_obj.createDataset(user_template)
+        ds_type = 'user_request',
+        process_id = self.id
 
-        saveDataset('dataset', system_dataset_obj.__dict__)
-        saveDataset('dataset', user_dataset_obj.__dict__)
+        UserDataset = DatasetBuilder(
+            ds_type,
+            process_id
+        ).createCustomDataset(
+            question,
+            self.company_name
+        )
 
-        request_completion = request_template.createDatasetList(system_dataset, user_dataset)
-        print('request_completion - ', request_completion)
+        saveDataset(SystemDataset.ds_type, SystemDataset.__dict__)
+        saveDataset(UserDataset.ds_type, UserDataset.__dict__)
 
-        return request_completion
+        completion_dataset = Dataset.createDatasetList(
+            SystemDataset,
+            UserDataset
+        )
+
+        print('completion_dataset - ', completion_dataset)
+
+        return completion_dataset
 
     def getTrainCompletion(self, request_completion):  # Send request to ChatGPT
 

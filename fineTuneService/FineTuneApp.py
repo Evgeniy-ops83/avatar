@@ -23,7 +23,7 @@ def createProcess(question_list=QUESTION_LIST):
 
     if request_body is None:
         company_name = COMPANY_URL
-        print("error: No JSON data found")
+        raise ValueError('error: No JSON data found')
 
     company_name = request_body.get("company_name")
     newProcess = FtProcess(company_name)

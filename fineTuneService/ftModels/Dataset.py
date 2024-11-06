@@ -40,7 +40,19 @@ class Dataset:
 
 class DatasetBuilder:
 
-    def createDatasetFromTemplate(self, question, ds_type):
+    def __init__(self, ds_type, process_id):
+        self.ds_type = ds_type
+        self.process_id = process_id
+
+    def createNewDataset(self):
+
+        newDataset = Dataset(self.ds_type, self.process_id)
+
+        return newDataset
+
+    def createDatasetFromTemplate(self, question):
+
+        ds_type = self.ds_type
 
         request_template = {}
 
@@ -54,7 +66,9 @@ class DatasetBuilder:
 
         return request_template
 
-    def createCustomDataset(self, question, ds_type, company_name):
+    def createCustomDataset(self, question, company_name):
+
+        ds_type = self.ds_type
 
         request_template = {}
 
@@ -68,8 +82,9 @@ class DatasetBuilder:
 
         return request_template
 
+    def createTrainDataset(self, request):
 
-    def createTrainDataset(self, ds_type, request):
+        ds_type = self.ds_type
 
         request_template = {}
 
