@@ -1,4 +1,5 @@
 from ftConfiguration.ftTrainConfig import DATASET_SAVE_DIR
+from ftStorage.ftPgConnector import saveObject
 
 from datetime import datetime, date
 import json
@@ -24,6 +25,8 @@ class DatasetFile:
         filepath = f"{DATASET_SAVE_DIR + self.filename}"
         with open(filepath, 'a+') as f:
             f.write(json.dumps(dataset) + "\n")
+
+        saveObject('ds_file', self.__dict__)
 
         return self.filename
 

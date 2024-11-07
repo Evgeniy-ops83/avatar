@@ -84,19 +84,16 @@ class FtProcess:  # for api return process
         
         return train_dataset
 
-    '''
-    def saveDatasetFile(self, dataset, company_name):
+    def saveDatasetFile(self, dataset):
 
         dataset_file = DatasetFile(self.id)
         self.path = dataset_file.saveTrainFile(dataset, self.company_name)  # Save Train Dataset
         print('dataset_path - ', self.path)
 
-        saveDataset('ds_file', dataset_file.__dict__)
-
         return self.path
         
         
-        
+'''
     train_completion = newProcess
     .getTrainCompletion
     (
@@ -113,6 +110,6 @@ class FtProcess:  # for api return process
             
 
 return newProcess.__dict__
-        
-        '''
+'''
+
 

@@ -80,7 +80,12 @@ def createProcess():
     train_dataset = (newProcess
                      .createTrainDataset(train_completion))
 
-    return train_dataset
+    dataset_path = (newProcess
+                    .saveDatasetFile(train_dataset))
+
+    saveObject('process', newProcess.__dict__)
+
+    return newProcess.__dict__
 
 
 if __name__ == '__main__':
