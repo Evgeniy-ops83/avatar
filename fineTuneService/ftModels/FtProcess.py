@@ -11,6 +11,7 @@ class FtProcess:  # for api return process
     id: str
     company_name: str
     created: str
+    path: str
 
     def __init__(self, company_name):
         self.id = str(uuid.uuid4())
