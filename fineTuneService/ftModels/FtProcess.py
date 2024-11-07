@@ -2,7 +2,7 @@ from ftModels.Dataset import Dataset, DatasetBuilder
 from openaiConnector.completion import ChatCompletion
 from ftConfiguration.ftTrainConfig import COMPANY_URL
 from ftFileManage.saveTrainDataset import DatasetFile
-from ftStorage.ftPgConnector import saveObject
+
 
 import uuid
 from datetime import datetime
@@ -27,22 +27,19 @@ class FtProcess:  # for api return process
             process_id=self.id
         )
 
-        SystemRequest = (Object
-                         .createDatasetFromTemplate(question, ds_type='system_request'))
+        SystemTemplate = (Object
+                          .createDatasetFromTemplate(question, ds_type='system_request'))
+        UserTemplate = (Object
+                        .createCustomDataset(question, self.company_name, ds_type='user_request'))
+
         SystemObject = (Object
-                        .createNewDataset(ds_type='system_request', request=SystemRequest))
-
-        UserRequest = (Object
-                       .createCustomDataset(question, self.company_name, ds_type='user_request'))
+                        .createNewDataset(ds_type='system_request', request=SystemTemplate))
         UserObject = (Object
-                      .createNewDataset(ds_type='user_request', request=UserRequest))
-
-        saveObject(table='dataset', object=SystemObject.__dict__)
-        saveObject(table='dataset', object=UserObject.__dict__)
+                      .createNewDataset(ds_type='user_request', request=UserTemplate))
 
         completion_dataset = Object.createDatasetList(
-            SystemRequest,
-            UserRequest
+            SystemObject,
+            UserObject
         )
 
         print('completion_dataset - ', completion_dataset)

@@ -1,4 +1,5 @@
 from ftConfiguration.ftTrainConfig import COMPANY_URL, SYSTEM_DATASET_TEMPLATE, USER_DATASET_TEMPLATE, TRAIN_SYSTEM_REQUEST, TRAIN_USER_REQUEST, ASSIST_DATASET_TEMPLATE
+from ftStorage.ftPgConnector import saveObject
 
 from pydantic import BaseModel
 import uuid
@@ -35,7 +36,15 @@ class Dataset:
 
         dataset = {"role": self.ds_role, "content": self.content}
 
-        return self
+        return dataset
+
+    def createAndSaveDataset(self, request):
+
+        dataset = self.createDataset(request)
+
+        saveObject(table='dataset', object=self.__dict__)
+
+        return dataset
 
 
 class DatasetBuilder:
@@ -45,7 +54,7 @@ class DatasetBuilder:
 
     def createNewDataset(self, ds_type, request):
 
-        newDataset = Dataset(ds_type, self.process_id).createDataset(request)
+        newDataset = Dataset(ds_type, self.process_id).createAndSaveDataset(request)
 
         return newDataset
 
