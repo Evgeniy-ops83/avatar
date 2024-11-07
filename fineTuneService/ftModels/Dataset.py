@@ -35,7 +35,7 @@ class Dataset:
 
         dataset = {"role": self.ds_role, "content": self.content}
 
-        return dataset
+        return self
 
 
 class DatasetBuilder:
