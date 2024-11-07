@@ -1,7 +1,7 @@
 from ftConfiguration.ftTrainConfig import QUESTION_LIST, COMPANY_URL, FINE_TUNE_DATASET_DIR, FINE_TUNE_DATASET
 from ftModels.FtProcess import FtProcess
 from ftModels.FineTuneJob import FineTuneJob
-from ftStorage.ftPgConnector import saveObjectProcess
+from ftStorage.ftPgConnector import saveObjectProcess, saveObjectJob
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
