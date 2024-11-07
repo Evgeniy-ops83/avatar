@@ -1,3 +1,4 @@
+'''
 from fineTuneService.ftModels.Dataset import Dataset, DatasetBuilder
 
 import uuid
@@ -48,4 +49,4 @@ class FtProcess:  # for api return process
 
 a = FtProcess("ozon.ru").createRequestFromTemplate(question= "Назови имя компании ?")
 
-
+'''
