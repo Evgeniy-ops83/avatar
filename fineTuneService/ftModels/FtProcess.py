@@ -3,7 +3,6 @@ from openaiConnector.completion import ChatCompletion
 from ftConfiguration.ftTrainConfig import COMPANY_URL
 from ftFileManage.saveTrainDataset import DatasetFile
 
-
 import uuid
 from datetime import datetime
 
