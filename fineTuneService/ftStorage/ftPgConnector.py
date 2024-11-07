@@ -46,7 +46,7 @@ def saveObjectProcess(object):
         with conn.cursor() as cur:
             cur.execute(
                 f"""
-                INSERT INTO avatar_source.process ({columns}) VALUES (%s, %s, %s)
+                INSERT INTO avatar_source.process ({columns}) VALUES (%s, %s, %s, %s)
                 """,
                 tuple(object.values())
             )
