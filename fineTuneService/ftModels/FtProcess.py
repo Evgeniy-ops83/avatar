@@ -65,7 +65,7 @@ class FtProcess:  # for api return process
         UserTemplate = (Object
                         .createTrainDataset(request, ds_type='user_completion'))
         AssistTemplate = (Object
-                          .createCustomDataset(request, ds_type='assist_completion'))
+                          .createTrainDataset(request, ds_type='assist_completion'))
 
         UserObject = (Object
                       .createNewDataset(ds_type='user_completion', request=UserTemplate))
