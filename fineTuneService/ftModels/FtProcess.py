@@ -37,8 +37,8 @@ class FtProcess:  # for api return process
         UserObject = (Object
                       .createNewDataset(ds_type='user_request', request=SystemRequest))
 
-        saveObject(table=SystemObject.ds_type, object=SystemObject.__dict__)
-        saveObject(table=UserObject.ds_type, object=UserObject.__dict__)
+        saveObject(table='dataset', object=SystemObject.__dict__)
+        saveObject(table='dataset', object=UserObject.__dict__)
 
         completion_dataset = Object.createDatasetList(
             SystemRequest,
