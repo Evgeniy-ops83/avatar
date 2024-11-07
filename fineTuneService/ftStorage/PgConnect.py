@@ -3,7 +3,7 @@ from ftConfiguration.ftConfig import PG_CONNECTION
 from contextlib import contextmanager
 from typing import Generator
 
-import psycopg
+import psycopg2
 
 
 class PgConnect:
@@ -30,11 +30,11 @@ class PgConnect:
         )
 
     def client(self):
-        return psycopg.connect(self.url())
+        return psycopg2.connect(self.url())
 
     @contextmanager
-    def connection(self) -> Generator[psycopg.Connection, None, None]:
-        conn = psycopg.connect(self.url())
+    def connection(self):
+        conn = psycopg2.connect(self.url())
         try:
             yield conn
             conn.commit()
