@@ -14,7 +14,6 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 app = Flask(__name__)
 #api = Api(app)
 
-'''
 @app.route('/process', methods=['POST'])
 @cross_origin()
 def createProcess(question_list=QUESTION_LIST):
@@ -30,16 +29,18 @@ def createProcess(question_list=QUESTION_LIST):
 
     for question in question_list:
 
-        completion_dataset = (newProcess
-                              .createRequestFromTemplate(question, company_name))
+        request_dataset = (newProcess
+                           .createRequestFromTemplate(question))
+
         train_completion = (newProcess
-                            .getTrainCompletion(completion_dataset))
+                            .getTrainCompletion(request_dataset))
+
         train_dataset = (newProcess
                          .createTrainDataset(train_completion))
-        dataset_path = (newProcess
-                        .saveDatasetFile(train_dataset, company_name))
 
-    saveObject('process', newProcess.__dict__)
+        dataset_path = (newProcess.saveDatasetFile(train_dataset))
+
+    saveObjectProcess(object=newProcess.__dict__)
 
     return newProcess.__dict__
 
@@ -52,40 +53,9 @@ def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_T
     NewJob = FineTuneJob(process_id)
     request = {"filepath": FINE_TUNE_DATASET_DIR+filename}
     startNewJob = NewJob.createNewFinetuneJob(request)
-    saveObject('ft_job', NewJob.__dict__)
+    saveObjectJob(object=NewJob.__dict__)
 
     return NewJob.__dict__
-'''
-
-@app.route('/process-test', methods=['POST'])
-@cross_origin()
-def createProcess():
-
-    request_body = request.get_json()
-
-    if request_body is None:
-        raise ValueError('error: No JSON data found')
-
-    company_name = request_body.get("company_name")
-    question = request_body.get("question")
-
-    newProcess = FtProcess(company_name)
-
-    request_dataset = (newProcess
-                       .createRequestFromTemplate(question))
-
-    train_completion = (newProcess
-                        .getTrainCompletion(request_dataset))
-
-    train_dataset = (newProcess
-                     .createTrainDataset(train_completion))
-
-    dataset_path = (newProcess
-                    .saveDatasetFile(train_dataset))
-
-    saveObjectProcess(object=newProcess.__dict__)
-
-    return newProcess.__dict__
 
 
 if __name__ == '__main__':

@@ -21,7 +21,7 @@ COLUMNS = {
     'dataset': 'id, ds_type, process_id, updated, ds_role, content',
     'process': 'id, company_url, created, path',
     'ds_file': 'id, process_id, filename, created',
-    'ft_job': 'key, process_id, ft_status, general_model, ft_model, ft_file_id, error, created'
+    'ft_job': 'id, key, process_id, ft_status, general_model, ft_model, ft_file_id, error, created'
 }
 
 DATASET_COLUMNS = 'id, ds_type, process_id, updated, ds_role, content'

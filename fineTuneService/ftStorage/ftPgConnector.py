@@ -53,3 +53,20 @@ def saveObjectProcess(object):
         conn.commit()
 
     return 'Object Saved'
+
+
+def saveObjectJob(object):
+
+    columns = COLUMNS['ft_job']
+
+    with pg_connect.connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                f"""
+                INSERT INTO avatar_source.ft_job ({columns}) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                """,
+                tuple(object.values())
+            )
+        conn.commit()
+
+    return 'Object Saved'
