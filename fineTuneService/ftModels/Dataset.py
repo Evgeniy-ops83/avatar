@@ -49,7 +49,7 @@ class DatasetBuilder:
 
         return newDataset
 
-    def createDatasetFromTemplate(self, ds_type, request):
+    def createDatasetFromTemplate(self, question, ds_type):
 
         request_template = {}
 
@@ -59,7 +59,7 @@ class DatasetBuilder:
 
         if ds_type == 'user_request':
             request_template = USER_DATASET_TEMPLATE
-            request_template['user_request'] = TRAIN_USER_REQUEST.format(COMPANY_URL) + request['question']
+            request_template['user_request'] = TRAIN_USER_REQUEST.format(COMPANY_URL) + question
 
         return request_template
 
