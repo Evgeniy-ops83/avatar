@@ -27,26 +27,20 @@ class FtProcess:  # for api return process
             process_id=self.id
         )
 
-        SystemObject = (Object
-                        .createNewDataset(ds_type='system_request'))
         SystemRequest = (Object
                          .createDatasetFromTemplate(question, ds_type='system_request'))
+        SystemObject = (Object
+                        .createNewDataset(ds_type='system_request', request=SystemRequest))
 
-        UserObject = (Object
-                      .createNewDataset(ds_type='user_request'))
         UserRequest = (Object
                        .createCustomDataset(question, self.company_name, ds_type='user_request'))
+        UserObject = (Object
+                      .createNewDataset(ds_type='user_request', request=SystemRequest))
 
-        saveObject(SystemObject.ds_type,
-                   Object.
-                   createNewDataset('system_request').__dict__)
+        saveObject(table=SystemObject.ds_type, object=SystemObject.__dict__)
+        saveObject(table=UserObject.ds_type, object=UserObject.__dict__)
 
-        saveObject(UserObject
-                   .createNewDataset('user_request'),
-                   UserObject
-                   .createNewDataset('user_request').__dict__)
-
-        completion_dataset = Dataset.createDatasetList(
+        completion_dataset = Object.createDatasetList(
             SystemRequest,
             UserRequest
         )
