@@ -9,16 +9,12 @@ BASIC_URL = os.environ['BASIC_URL']
 CH_DB_HOST = BASIC_URL
 CH_DB_PORT = 9000
 
-PG_DB_HOST = BASIC_URL
-PG_DB_PORT = 5432
-PG_DB_PW = os.environ['PG_DB_PW']
-
 PG_CONNECTION = {
     'host': BASIC_URL,
     'port': 5432,
     'db_name': 'av_assist',
     'user': 'asapp',
-    'pw': PG_DB_PW
+    'pw': os.environ['PG_DB_PW']
 }
 
 COLUMNS = {
