@@ -30,7 +30,7 @@ class PgConnect:
         )
 
     def client(self):
-            return psycopg.connect(self.url())
+        return psycopg.connect(self.url())
 
     @contextmanager
     def connection(self) -> Generator[psycopg.Connection, None, None]:
