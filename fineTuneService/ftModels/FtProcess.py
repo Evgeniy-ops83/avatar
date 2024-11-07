@@ -55,44 +55,31 @@ class FtProcess:  # for api return process
 
         return train_completion
 
-    '''
+
     def createTrainDataset(self, request):  # Format GPT response for Train Dataset
 
-        ds_type = 'user_completion'
-        process_id = self.id
-
-        userCompletion = DatasetBuilder(
-            ds_type,
-            process_id
-        ).createTrainDataset(
-            ds_type,
-            request=request['user_request']
+        Object = DatasetBuilder(
+            process_id=self.id
         )
 
-        ds_type = 'assist_completion'
-        process_id = self.id
+        UserObject = (Object
+                      .createNewDataset(ds_type='user_completion', request=request['user_request']))
+        AssistObject = (Object
+                        .createNewDataset(ds_type='assist_completion', request=request['assistant_request']))
 
-        assistCompletion = DatasetBuilder(
-            ds_type,
-            process_id
-        ).createTrainDataset(
-            ds_type,
-            request=request['assistant_request']
+        completion_dataset = Object.createDatasetList(
+            UserObject,
+            AssistObject
         )
 
-        saveObject('dataset', userCompletion.__dict__)
-        saveObject('dataset', assistCompletion.__dict__)
+        train_dataset = (Object
+                         .createMessageTrainList(completion_dataset))
 
-        
-        train_completion_list = (train_template
-                                 .createDatasetList(user_completion_ds, assist_completion_ds))
-        train_dataset = (train_template
-                         .createMessageTrainList(train_completion_list))
         print('train_dataset - ', train_dataset)
         
-        
-        return 200
+        return train_dataset
 
+    '''
     def saveDatasetFile(self, dataset, company_name):
 
         dataset_file = DatasetFile(self.id)

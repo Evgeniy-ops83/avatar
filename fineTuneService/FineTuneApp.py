@@ -77,7 +77,10 @@ def createProcess():
     train_completion = (newProcess
                         .getTrainCompletion(completion_dataset))
 
-    return train_completion
+    train_dataset = (newProcess
+                     .createTrainDataset(train_completion))
+
+    return train_dataset
 
 
 if __name__ == '__main__':
