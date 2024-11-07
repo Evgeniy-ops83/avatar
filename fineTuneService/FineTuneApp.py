@@ -74,7 +74,10 @@ def createProcess():
     completion_dataset = (newProcess
                           .createRequestFromTemplate(question))
 
-    return completion_dataset
+    train_completion = (newProcess
+                        .getTrainCompletion(completion_dataset))
+
+    return train_completion
 
 
 if __name__ == '__main__':
