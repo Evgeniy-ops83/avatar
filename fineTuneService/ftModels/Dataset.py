@@ -92,11 +92,11 @@ class DatasetBuilder:
 
         if ds_type == 'user_completion':
             request_template = USER_DATASET_TEMPLATE
-            request_template['user_request'] = request
+            request_template['user_request'] = request['user_request']
 
         if ds_type == 'assist_completion':
             request_template = ASSIST_DATASET_TEMPLATE
-            request_template['assistant_request'] = request
+            request_template['assistant_request'] = request['assistant_request']
 
         return request_template
 
