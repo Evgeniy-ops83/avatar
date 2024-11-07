@@ -71,11 +71,11 @@ def createProcess():
 
     newProcess = FtProcess(company_name)
 
-    completion_dataset = (newProcess
-                          .createRequestFromTemplate(question))
+    request_dataset = (newProcess
+                       .createRequestFromTemplate(question))
 
     train_completion = (newProcess
-                        .getTrainCompletion(completion_dataset))
+                        .getTrainCompletion(request_dataset))
 
     train_dataset = (newProcess
                      .createTrainDataset(train_completion))

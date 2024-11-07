@@ -37,14 +37,14 @@ class FtProcess:  # for api return process
         UserObject = (Object
                       .createNewDataset(ds_type='user_request', request=UserTemplate))
 
-        completion_dataset = Object.createDatasetList(
+        request_dataset = Object.createDatasetList(
             SystemObject,
             UserObject
         )
 
-        print('completion_dataset - ', completion_dataset)
+        print('completion_dataset - ', request_dataset)
 
-        return completion_dataset
+        return request_dataset
 
     def getTrainCompletion(self, request_completion):  # Send request to ChatGPT
 
@@ -62,10 +62,15 @@ class FtProcess:  # for api return process
             process_id=self.id
         )
 
+        UserTemplate = (Object
+                        .createTrainDataset(request, ds_type='user_completion'))
+        AssistTemplate = (Object
+                          .createCustomDataset(request, ds_type='assist_completion'))
+
         UserObject = (Object
-                      .createNewDataset(ds_type='user_completion', request=request['user_request']))
+                      .createNewDataset(ds_type='user_completion', request=UserTemplate))
         AssistObject = (Object
-                        .createNewDataset(ds_type='assist_completion', request=request['assistant_request']))
+                        .createNewDataset(ds_type='assist_completion', request=AssistTemplate))
 
         completion_dataset = Object.createDatasetList(
             UserObject,
