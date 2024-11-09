@@ -45,7 +45,6 @@ def createProcess(question_list=QUESTION_LIST):
     return newProcess.__dict__
 
 
-
 @app.route('/job', methods=['POST'])
 @cross_origin()
 def createJob(process_id='722133c6-8348-44c5-979b-73ab908c8d53', filename=FINE_TUNE_DATASET_DIR+FINE_TUNE_DATASET):

@@ -1,4 +1,4 @@
-from ftModels.Dataset import Dataset, DatasetBuilder
+from ftModels.Dataset import Dataset
 from openaiConnector.completion import ChatCompletion
 from ftConfiguration.ftTrainConfig import COMPANY_URL
 from ftFileManage.saveTrainDataset import DatasetFile
@@ -31,16 +31,12 @@ class FtProcess:  # for api return process
         SystemObject = (SysDataset
                         .createDataset(company_name=self.company_name))
 
-        print('SystemObject - ', SystemObject)
-
         UsrDataset = Dataset(
             process_id=self.id,
             ds_type='user_request'
         )
         UserObject = (UsrDataset
                       .createDataset(company_name=self.company_name, question=question))
-
-        print('UserObject - ', UserObject)
 
         completion_dataset = [SystemObject, UserObject]
 

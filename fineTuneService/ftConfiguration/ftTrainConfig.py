@@ -15,19 +15,7 @@ QUESTION_LIST = [
     'How can I get delivery of company products ?',
     'What is the key feedback points about the company from customers ? (use around 100 symbols in response)'
 ]
-SYSTEM_DATASET_TEMPLATE = {
-    'system_request': 'null'
-}
-USER_DATASET_TEMPLATE = {
-    'user_request': 'null'
-}
-ASSIST_DATASET_TEMPLATE = {
-    'assistant_request': 'null'
-}
-TRAIN_REQUEST_TEMPLATE = {
-    'system_request': 'null',
-    'user_request': 'null'
-}
+
 TRAIN_DATASET_TEMPLATE = {
     'user_request': 'null',
     'assistant_request': 'null'
