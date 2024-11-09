@@ -75,21 +75,21 @@ class FtProcess:  # for api return process
 
         return train_completion
 
-    def createTrainDataset(self, **request):  # Format GPT response for Train Dataset
+    def createTrainDataset(self, request):  # Format GPT response for Train Dataset
 
         UsrDataset = Dataset(
             process_id=self.id,
             ds_type='user_completion'
         )
         UsrObject = (UsrDataset
-                     .createDataset(company_name=self.company_name, request=request))
+                     .createDataset(company_name=self.company_name, **request))
 
         AssistDataset = Dataset(
             process_id=self.id,
             ds_type='assist_completion'
         )
         AssistObject = (AssistDataset
-                        .createDataset(company_name=self.company_name, request=request))
+                        .createDataset(company_name=self.company_name, **request))
 
         train_dataset = {'messages': [UsrObject, AssistObject]}
 
