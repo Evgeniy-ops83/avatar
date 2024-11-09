@@ -29,16 +29,22 @@ class FtProcess:  # for api return process
             ds_type='system_request'
         )
         SystemObject = (SysDataset
-                        .createDataset(company_name=self.company_name, question=question, request={}))
+                        .createDataset(company_name=self.company_name))
+
+        print('SystemObject - ', SystemObject)
 
         UsrDataset = Dataset(
             process_id=self.id,
             ds_type='user_request'
         )
         UserObject = (UsrDataset
-                      .createDataset(company_name=self.company_name, question=question, request={}))
+                      .createDataset(company_name=self.company_name, question=question))
+
+        print('UserObject - ', UserObject)
 
         request_dataset = DatasetBuilder.createDatasetList(SystemObject, UserObject)
+
+        print('request_dataset - ', request_dataset)
 
         saveObjectDataset(object=SysDataset.__dict__)
         saveObjectDataset(object=UsrDataset.__dict__)
