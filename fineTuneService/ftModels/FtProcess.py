@@ -2,7 +2,6 @@ from ftModels.Dataset import Dataset, DatasetBuilder
 from openaiConnector.completion import ChatCompletion
 from ftConfiguration.ftTrainConfig import COMPANY_URL
 from ftFileManage.saveTrainDataset import DatasetFile
-from ftStorage.ftPgConnector import saveDataset
 
 import uuid
 from datetime import datetime
@@ -12,6 +11,7 @@ class FtProcess:  # for api return process
     id: str
     company_name: str
     created: str
+    path: str
 
     def __init__(self, company_name):
         self.id = str(uuid.uuid4())
@@ -23,38 +23,28 @@ class FtProcess:  # for api return process
 
         print(f'The next question is {question}')
 
-        ds_type = 'system_request'
-        process_id = self.id
-
-        SystemDataset = DatasetBuilder(
-                ds_type,
-                process_id
-            ).createDatasetFromTemplate(
-            question
+        Object = DatasetBuilder(
+            process_id=self.id
         )
 
-        ds_type = 'user_request',
-        process_id = self.id
+        SystemTemplate = (Object
+                          .createDatasetFromTemplate(question, ds_type='system_request'))
+        UserTemplate = (Object
+                        .createCustomDataset(question, self.company_name, ds_type='user_request'))
 
-        UserDataset = DatasetBuilder(
-            ds_type,
-            process_id
-        ).createCustomDataset(
-            question,
-            self.company_name
+        SystemObject = (Object
+                        .createNewDataset(ds_type='system_request', request=SystemTemplate))
+        UserObject = (Object
+                      .createNewDataset(ds_type='user_request', request=UserTemplate))
+
+        request_dataset = Object.createDatasetList(
+            SystemObject,
+            UserObject
         )
 
-        saveDataset(SystemDataset.ds_type, SystemDataset.__dict__)
-        saveDataset(UserDataset.ds_type, UserDataset.__dict__)
+        print('completion_dataset - ', request_dataset)
 
-        completion_dataset = Dataset.createDatasetList(
-            SystemDataset,
-            UserDataset
-        )
-
-        print('completion_dataset - ', completion_dataset)
-
-        return completion_dataset
+        return request_dataset
 
     def getTrainCompletion(self, request_completion):  # Send request to ChatGPT
 
@@ -65,48 +55,61 @@ class FtProcess:  # for api return process
 
         return train_completion
 
+
     def createTrainDataset(self, request):  # Format GPT response for Train Dataset
 
-        ds_type = 'user_completion'
-        process_id = self.id
-
-        userCompletion = DatasetBuilder(
-            ds_type,
-            process_id
-        ).createTrainDataset(
-            ds_type,
-            request=request['user_request']
+        Object = DatasetBuilder(
+            process_id=self.id
         )
 
-        ds_type = 'assist_completion'
-        process_id = self.id
+        UserTemplate = (Object
+                        .createTrainDataset(request, ds_type='user_completion'))
+        AssistTemplate = (Object
+                          .createTrainDataset(request, ds_type='assist_completion'))
 
-        assistCompletion = DatasetBuilder(
-            ds_type,
-            process_id
-        ).createTrainDataset(
-            ds_type,
-            request=request['assistant_request']
+        UserObject = (Object
+                      .createNewDataset(ds_type='user_completion', request=UserTemplate))
+        AssistObject = (Object
+                        .createNewDataset(ds_type='assist_completion', request=AssistTemplate))
+
+        completion_dataset = Object.createDatasetList(
+            UserObject,
+            AssistObject
         )
 
-        saveDataset('dataset', userCompletion.__dict__)
-        saveDataset('dataset', assistCompletion.__dict__)
+        train_dataset = (Object
+                         .createMessageTrainList(completion_dataset))
 
-        train_completion_list = (train_template
-                                 .createDatasetList(user_completion_ds, assist_completion_ds))
-        train_dataset = (train_template
-                         .createMessageTrainList(train_completion_list))
         print('train_dataset - ', train_dataset)
-
+        
         return train_dataset
 
-    def saveDatasetFile(self, dataset, company_name):
+    def saveDatasetFile(self, dataset):
 
         dataset_file = DatasetFile(self.id)
         self.path = dataset_file.saveTrainFile(dataset, self.company_name)  # Save Train Dataset
         print('dataset_path - ', self.path)
 
-        saveDataset('ds_file', dataset_file.__dict__)
-
         return self.path
+        
+        
+'''
+    train_completion = newProcess
+    .getTrainCompletion
+    (
+    completion_dataset
+    )
+
+    train_dataset = (newProcess
+    .createTrainDataset(train_completion))
+
+    dataset_path = (newProcess
+    .saveDatasetFile(train_dataset, company_name))
+
+        saveObject('process', newProcess.__dict__)
+            
+
+return newProcess.__dict__
+'''
+
 

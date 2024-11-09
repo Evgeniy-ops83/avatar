@@ -1,4 +1,5 @@
 from ftConfiguration.ftTrainConfig import COMPANY_URL, SYSTEM_DATASET_TEMPLATE, USER_DATASET_TEMPLATE, TRAIN_SYSTEM_REQUEST, TRAIN_USER_REQUEST, ASSIST_DATASET_TEMPLATE
+from ftStorage.ftPgConnector import saveObjectDataset
 
 from pydantic import BaseModel
 import uuid
@@ -37,22 +38,27 @@ class Dataset:
 
         return dataset
 
+    def createAndSaveDataset(self, request):
+
+        dataset = self.createDataset(request)
+
+        saveObjectDataset(object=self.__dict__)
+
+        return dataset
+
 
 class DatasetBuilder:
 
-    def __init__(self, ds_type, process_id):
-        self.ds_type = ds_type
+    def __init__(self, process_id):
         self.process_id = process_id
 
-    def createNewDataset(self):
+    def createNewDataset(self, ds_type, request):
 
-        newDataset = Dataset(self.ds_type, self.process_id)
+        newDataset = Dataset(ds_type, self.process_id).createAndSaveDataset(request)
 
         return newDataset
 
-    def createDatasetFromTemplate(self, question):
-
-        ds_type = self.ds_type
+    def createDatasetFromTemplate(self, question, ds_type):
 
         request_template = {}
 
@@ -66,9 +72,7 @@ class DatasetBuilder:
 
         return request_template
 
-    def createCustomDataset(self, question, company_name):
-
-        ds_type = self.ds_type
+    def createCustomDataset(self, question, company_name, ds_type):
 
         request_template = {}
 
@@ -82,19 +86,17 @@ class DatasetBuilder:
 
         return request_template
 
-    def createTrainDataset(self, request):
-
-        ds_type = self.ds_type
+    def createTrainDataset(self, request, ds_type):
 
         request_template = {}
 
         if ds_type == 'user_completion':
             request_template = USER_DATASET_TEMPLATE
-            request_template['user_request'] = request
+            request_template['user_request'] = request['user_request']
 
         if ds_type == 'assist_completion':
             request_template = ASSIST_DATASET_TEMPLATE
-            request_template['assistant_request'] = request
+            request_template['assistant_request'] = request['assistant_request']
 
         return request_template
 
