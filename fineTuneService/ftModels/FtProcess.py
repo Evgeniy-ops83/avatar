@@ -2,6 +2,7 @@ from ftModels.Dataset import Dataset, DatasetBuilder
 from openaiConnector.completion import ChatCompletion
 from ftConfiguration.ftTrainConfig import COMPANY_URL
 from ftFileManage.saveTrainDataset import DatasetFile
+from ftStorage.ftPgConnector import saveObjectDataset
 
 import uuid
 from datetime import datetime
@@ -23,26 +24,33 @@ class FtProcess:  # for api return process
 
         print(f'The next question is {question}')
 
-        Object = DatasetBuilder(
-            process_id=self.id
+        SysDataset = Dataset(
+            process_id=self.id,
+            ds_type='system_request'
         )
+        SystemObject = (SysDataset
+                        .createDataset(company_name=self.company_name, question=question, request={}))
 
-        SystemTemplate = (Object
-                          .createDatasetFromTemplate(question, ds_type='system_request'))
-        UserTemplate = (Object
-                        .createCustomDataset(question, self.company_name, ds_type='user_request'))
-
-        SystemObject = (Object
-                        .createNewDataset(ds_type='system_request', request=SystemTemplate))
-        UserObject = (Object
-                      .createNewDataset(ds_type='user_request', request=UserTemplate))
-
-        request_dataset = Object.createDatasetList(
-            SystemObject,
-            UserObject
+        UsrDataset = Dataset(
+            process_id=self.id,
+            ds_type='user_request'
         )
+        UserObject = (UsrDataset
+                      .createDataset(company_name=self.company_name, question=question, request={}))
+
+        request_dataset = DatasetBuilder.createDatasetList(SystemObject, UserObject)
+
+        saveObjectDataset(object=SysDataset.__dict__)
+        saveObjectDataset(object=UsrDataset.__dict__)
 
         print('completion_dataset - ', request_dataset)
+        '''
+        >>>
+        [
+        {"role": "system","content": "Write the answer to the question in the format ... into the value"}, 
+        {"role": "user", "content": "Write an answer to the question about the comp...delivery of company products?"}
+        ]
+        '''
 
         return request_dataset
 
@@ -53,34 +61,52 @@ class FtProcess:  # for api return process
         ).getCompletionJson())
         print('train_completion - ', train_completion)
 
+        '''
+        train_completion
+        {
+        'user_request': 'How can I get delivery of company products?', 
+        'assistant_request': 'You can get delivery of company products by pla...erred shipping method during checkout.'
+        }
+        '''
+
         return train_completion
 
 
     def createTrainDataset(self, request):  # Format GPT response for Train Dataset
 
-        Object = DatasetBuilder(
-            process_id=self.id
+        UsrDataset = Dataset(
+            process_id=self.id,
+            ds_type='user_completion'
         )
+        UsrObject = (UsrDataset
+                     .createDataset(company_name=self.company_name, request=request))
 
-        UserTemplate = (Object
-                        .createTrainDataset(request, ds_type='user_completion'))
-        AssistTemplate = (Object
-                          .createTrainDataset(request, ds_type='assist_completion'))
-
-        UserObject = (Object
-                      .createNewDataset(ds_type='user_completion', request=UserTemplate))
-        AssistObject = (Object
-                        .createNewDataset(ds_type='assist_completion', request=AssistTemplate))
-
-        completion_dataset = Object.createDatasetList(
-            UserObject,
-            AssistObject
+        AssistDataset = Dataset(
+            process_id=self.id,
+            ds_type='assist_completion'
         )
+        AssistObject = (AssistDataset
+                        .createDataset(company_name=self.company_name, request=request))
 
-        train_dataset = (Object
+        completion_dataset = (DatasetBuilder
+                              .createDatasetList(UsrObject, AssistObject))
+        train_dataset = (DatasetBuilder
                          .createMessageTrainList(completion_dataset))
 
+        saveObjectDataset(object=UsrDataset.__dict__)
+        saveObjectDataset(object=AssistDataset.__dict__)
+
         print('train_dataset - ', train_dataset)
+
+        '''
+        train_dataset  
+        {'messages': 
+            [
+            {'role': 'user', 'content': 'What is the key feedback points about the company from customers?'}, 
+            {'role': 'assistant', 'content': 'Customers praise Eleven Labs for its powerful AI capa...ndly interface.'}
+            ]
+        }
+        '''
         
         return train_dataset
 
@@ -92,24 +118,6 @@ class FtProcess:  # for api return process
 
         return self.path
         
-        
-'''
-    train_completion = newProcess
-    .getTrainCompletion
-    (
-    completion_dataset
-    )
 
-    train_dataset = (newProcess
-    .createTrainDataset(train_completion))
-
-    dataset_path = (newProcess
-    .saveDatasetFile(train_dataset, company_name))
-
-        saveObject('process', newProcess.__dict__)
-            
-
-return newProcess.__dict__
-'''
 
 

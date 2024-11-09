@@ -40,10 +40,8 @@ class FineTuneJob:
         ft_job = FineTune(filepath)
 
         self.ft_file_id = ft_job.createFinetuneFile().id
-        print('ft_file_id - ', self.ft_file_id)
 
         self.key = ft_job.createFinetuneJob(self.ft_file_id).id
-        print('train_ft_job_id - ', self.key)
 
         print('Fine tune is in process now. Please wait')
         self.ft_status = ft_job.getFinetuneJob(self.key).status
@@ -57,8 +55,8 @@ class FineTuneJob:
                 self.ft_status = train_job.status
                 print('job_status - ', self.ft_status)
 
-            if self.ft_status == 'succeeded':
-                self.ft_model = train_job.fine_tuned_model
+        if self.ft_status == 'succeeded':
+            self.ft_model = train_job.fine_tuned_model
 
             time.sleep(15)
 
