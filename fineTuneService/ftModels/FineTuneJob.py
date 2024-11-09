@@ -23,11 +23,11 @@ class FineTuneJob:
         self.id = str(uuid.uuid4())
         self.key = 'undefined'
         self.process_id = process_id
-        self.error = 'undefined'
         self.ft_status = 'undefined'
         self.general_model = GENERAL_FT_MODEL
         self.ft_model = 'undefined'
         self.ft_file_id = 'undefined'
+        self.error = 'undefined'
         self.created = str(datetime.now())
 
     def createNewFinetuneJob(self, request):
