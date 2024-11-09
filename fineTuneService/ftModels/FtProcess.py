@@ -40,8 +40,9 @@ class FtProcess:  # for api return process
 
         completion_dataset = [SystemObject, UserObject]
 
-        saveObjectDataset(object=SysDataset.__dict__)
-        saveObjectDataset(object=UsrDataset.__dict__)
+        # Turned off saving into db
+        # saveObjectDataset(object=SysDataset.__dict__)
+        # saveObjectDataset(object=UsrDataset.__dict__)
 
         print('completion_dataset - ', completion_dataset)
         '''
