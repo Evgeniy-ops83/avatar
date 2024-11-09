@@ -22,7 +22,7 @@ class Dataset:
         self.ds_role = 'undefined'
         self.content = 'undefined'
 
-    def createDataset(self, company_name, request, question=''):
+    def createDataset(self, company_name, question='', **request):
 
         if self.ds_type == 'system_request':
             self.ds_role = 'system'

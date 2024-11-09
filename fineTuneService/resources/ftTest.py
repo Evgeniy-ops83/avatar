@@ -1,16 +1,17 @@
-TRAIN_SYSTEM_REQUEST = \
-        {
-            'role': 'system',
-            'content': 'Write the answer to the question in the format {}, Language English'
+req = {
+        'user_request': 'How can I get delivery of company products?',
+        'assistant_request': 'You can get delivery of company products by pla...erred shipping method during checkout.'
         }
 
-USER_REQUEST = \
-    {
-        'role': 'user',
-        'content': 'Write an answer to the question about the company based on the information on the elevenlabs.io website: \
-    What is the name of the company?'
-    }
 
-a = [TRAIN_SYSTEM_REQUEST, USER_REQUEST]
+def createDataset(**request):
+    print(request)
 
-print(a)
+
+a = createDataset(**req)
+
+
+
+
+
+

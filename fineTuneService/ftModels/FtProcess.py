@@ -75,7 +75,7 @@ class FtProcess:  # for api return process
 
         return train_completion
 
-    def createTrainDataset(self, request):  # Format GPT response for Train Dataset
+    def createTrainDataset(self, **request):  # Format GPT response for Train Dataset
 
         UsrDataset = Dataset(
             process_id=self.id,
