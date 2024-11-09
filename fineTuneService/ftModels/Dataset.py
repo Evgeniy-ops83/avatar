@@ -54,9 +54,6 @@ class Dataset:
 
 class DatasetBuilder:
 
-    def __init__(self):
-        pass
-
     def createDatasetList(self, *args):
 
         ds_list = []
