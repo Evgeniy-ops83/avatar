@@ -42,15 +42,15 @@ TRAIN_SYSTEM_REQUEST = \
         and for the role 'assistant_request' insert your answer to the question into the value
         """
 TRAIN_USER_REQUEST = \
-        f"""
-        Write an answer to the question about the company based on the information on the {COMPANY_URL} website:
         """
-DATASET_SAVE_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{COMPANY_URL}'
+        Write an answer to the question about the company based on the information on the {} website:
+        """
+DATASET_SAVE_DIR = rf'/home/ubuntu/assistApp/ai_assist/fineTuneService/resources/datasets/'
 
 """CREATING FINE TUNE JOB"""
 
 FINE_TUNE_DATASET = '1c.ru - 2024-11-02'
 FT_MODEL_SUFFIX = 'avatar-model'    # for API
-FINE_TUNE_DATASET_DIR = rf'C:\Users\777\PycharmProjects\avatar\fineTuneService\resources\datasets\{FINE_TUNE_DATASET}'
+FINE_TUNE_DATASET_DIR = f'/home/ubuntu/assistApp/ai_assist/fineTuneService/resources/datasets/'
 
 

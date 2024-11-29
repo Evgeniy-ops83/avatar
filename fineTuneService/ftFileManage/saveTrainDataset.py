@@ -1,4 +1,4 @@
-from fineTuneService.ftConfiguration.ftTrainConfig import DATASET_SAVE_DIR
+from ftConfiguration.ftTrainConfig import DATASET_SAVE_DIR
 
 from datetime import datetime, date
 import json
@@ -20,9 +20,10 @@ class DatasetFile:
     def saveTrainFile(self, dataset, file_name):
 
         self.filename = f"{file_name} - {date.today()}"
-        filepath = f"{DATASET_SAVE_DIR} - {date.today()}"
+
+        filepath = f"{DATASET_SAVE_DIR + self.filename}"
         with open(filepath, 'a+') as f:
             f.write(json.dumps(dataset) + "\n")
 
-        return filepath
+        return self.filename
 
